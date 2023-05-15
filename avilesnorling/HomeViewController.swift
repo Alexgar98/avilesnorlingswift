@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController, StringSelectionDelegate {
 
     @IBOutlet weak var twitter: UIImageView!
     @IBOutlet weak var facebook: UIImageView!
@@ -18,6 +18,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var numeroMovil: UIButton!
     @IBOutlet weak var numeroTelefono: UIButton!
     @IBOutlet weak var mail: UIButton!
+    weak var delegate : StringSelectionDelegate?
+    var ubicacion : String = ""
+    var tipoAnuncio : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -87,45 +91,66 @@ class ViewController: UIViewController {
     
     let alertController = UIAlertController(title: "Ubicación", message: "Selecciona una ubicación", preferredStyle: .actionSheet)
     @IBAction func btnVenta(_ sender: Any) {
+        tipoAnuncio = "Venta"
         let alertController = UIAlertController(title: "Ubicación", message: "Selecciona una ubicación", preferredStyle: .actionSheet)
         let torre = UIAlertAction(title: "Torre del Mar", style: .default) {_ in
             print ("Eliges Torre del Mar")
+            self.ubicacion = "Torre del Mar"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Torre del Mar")
         }
         alertController.addAction(torre)
         let velez = UIAlertAction(title: "Vélez-Málaga", style: .default) {_ in
             print ("Eliges Vélez")
+            self.ubicacion = "Vélez-Málaga"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Vélez-Málaga")
         }
         alertController.addAction(velez)
         let algarrobo = UIAlertAction(title: "Algarrobo", style: .default) {_ in
             print ("Eliges Algarrobo")
+            self.ubicacion = "Algarrobo"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Algarrobo")
         }
         alertController.addAction(algarrobo)
         let almachar = UIAlertAction(title: "Almáchar", style: .default) {_ in
             print ("Eliges Almáchar")
+            self.ubicacion = "Almáchar"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Almáchar")
         }
         alertController.addAction(almachar)
         let almayate = UIAlertAction(title: "Almayate", style: .default) {_ in
             print ("Eliges Almayate")
+            self.ubicacion = "Almayate"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Almayate")
         }
         alertController.addAction(almayate)
         let benajarafe = UIAlertAction(title: "Benajarafe", style: .default) {_ in
             print ("Eliges Benajarafe")
+            self.ubicacion = "Benajarafe"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Benajarafe")
         }
         alertController.addAction(benajarafe)
         let benamargosa = UIAlertAction(title: "Benamargosa", style: .default) {_ in
             print ("Eliges Benamargosa")
+            self.ubicacion = "Benamargosa"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Benamargosa")
         }
         alertController.addAction(benamargosa)
         let caleta = UIAlertAction(title: "Caleta de Vélez", style: .default) {_ in
             print ("Eliges Caleta")
+            self.ubicacion = "Caleta de Vélez"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Caleta de Vélez")
         }
         alertController.addAction(caleta)
         let canillas = UIAlertAction(title: "Canillas de Aceituno", style: .default) {_ in
             print ("Eliges Canillas")
+            self.ubicacion = "Canillas de Aceituno"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Canillas de Aceituno")
         }
         alertController.addAction(canillas)
         let torrox = UIAlertAction(title: "Torrox", style: .default) {_ in
             print ("Eliges Torrox")
+            self.ubicacion = "Torrox"
+            self.performSegue(withIdentifier: "aBuscar", sender: "Torrox")
         }
         alertController.addAction(torrox)
         let cancelar = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
@@ -134,21 +159,30 @@ class ViewController: UIViewController {
     }
     
     @IBAction func alquiler(_ sender: Any) {
+        tipoAnuncio = "Alquiler"
         let alertController = UIAlertController(title: "Ubicación", message: "Selecciona una ubicación", preferredStyle: .actionSheet)
         let torre = UIAlertAction(title: "Torre del Mar", style: .default) {_ in
             print ("Eliges Torre del Mar")
+            self.ubicacion = "Torre del Mar"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(torre)
         let velez = UIAlertAction(title: "Vélez-Málaga", style: .default) {_ in
             print ("Eliges Vélez")
+            self.ubicacion = "Vélez-Málaga"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(velez)
         let caleta = UIAlertAction(title: "Caleta de Vélez", style: .default) {_ in
             print ("Eliges Caleta")
+            self.ubicacion = "Caleta de Vélez"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(caleta)
         let canillas = UIAlertAction(title: "Canillas de Aceituno", style: .default) {_ in
             print ("Eliges Canillas")
+            self.ubicacion = "Canillas de Aceituno"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(canillas)
         let cancelar = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
@@ -156,24 +190,35 @@ class ViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
     @IBAction func vacaciones(_ sender: Any) {
+        tipoAnuncio = "Vacaciones"
         let torre = UIAlertAction(title: "Torre del Mar", style: .default) {_ in
             print ("Eliges Torre del Mar")
+            self.ubicacion = "Torre del Mar"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(torre)
         let almayate = UIAlertAction(title: "Almayate", style: .default) {_ in
             print ("Eliges Almayate")
+            self.ubicacion = "Almayate"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(almayate)
         let caleta = UIAlertAction(title: "Caleta de Vélez", style: .default) {_ in
             print ("Eliges Caleta")
+            self.ubicacion = "Caleta de Vélez"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(caleta)
         let malaga = UIAlertAction(title: "Málaga", style: .default) {_ in
             print ("Eliges Málaga")
+            self.ubicacion = "Málaga"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(malaga)
         let malagaOriental = UIAlertAction(title: "Málaga oriental", style: .default) {_ in
             print ("Eliges Málaga oriental")
+            self.ubicacion = "Málaga oriental"
+            self.performSegue(withIdentifier: "aBuscar", sender: nil)
         }
         alertController.addAction(malagaOriental)
         let cancelar = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
@@ -191,6 +236,20 @@ class ViewController: UIViewController {
         }
         else {
             print("Formato inválido")
+        }
+    }
+    
+    func didSelectString(_ string: String) {
+        print("Se ha seleccionado \(string)")
+        //TODO resto
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "aBuscar" {
+            let destino = segue.destination as? BusquedaViewController
+            destino?.delegate = self
+            destino?.ubicacionElegida = ubicacion
+            destino?.tipoAnuncioElegido = tipoAnuncio
         }
     }
     
