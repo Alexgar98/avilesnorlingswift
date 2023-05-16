@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import Foundation
 
-class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, XMLParserDelegate {
+class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, XMLParserDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var precioHasta: UITextView!
     @IBOutlet weak var tipoAnuncio: UIPickerView!
@@ -19,9 +20,6 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var tipoInmueble: UIPickerView!
     
     @IBOutlet weak var tableViewAnuncios: UITableView!
-    var datosXML : [DatosPropiedades] = []
-    var elementoActual : String = ""
-    
     weak var delegate : StringSelectionDelegate?
     var ubicacionElegida : String?
     var tipoAnuncioElegido : String?
@@ -30,12 +28,14 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var ubicaciones : [String] = [String]()
     var numerosDormitorios : [String] = [String]()
     var tiposInmueble : [String] = [String]()
+    
+    var parser = XMLParser()
+    var arrayPropiedades = [Propiedad]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
-        leerXML()
+        // Do any additional setup after loading the view.
         
         self.tipoAnuncio.delegate = self
         self.tipoAnuncio.dataSource = self
@@ -49,66 +49,41 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         self.tipoInmueble.delegate = self
         self.tipoInmueble.dataSource = self
         
+        self.tableViewAnuncios.dataSource = self
+        self.tableViewAnuncios.delegate = self
+        
         tiposAnuncio = ["Oferta", "Venta", "Alquiler", "Vacaciones"]
         ubicaciones = ["Torre del Mar", "Vélez-Málaga", "Algarrobo", "Almáchar", "Almayate", "Benajarafe", "Benamargosa", "Caleta de Vélez", "Canillas de Aceituno", "Torrox", "Málaga", "Málaga oriental"]
         numerosDormitorios = ["Dormitorios", "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+", "10+"]
         tiposInmueble = ["Tipo inmueble", "Pisos", "Casas", "Locales"]
+        
+        let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
+        self.parser = XMLParser(contentsOf: url!)!
+        self.parser.delegate = self
+        let success : Bool = self.parser.parse()
+        if success {
+            print("success. El número de propiedades es ", arrayPropiedades.count)
+        } else {
+            print("error")
+        }
+
     }
     
     @IBAction func buscar(_ sender: Any) {
-    }
-    
-    func leerXML() {
-        guard let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml") else {
-            print("URL inválida")
-            return
-        }
-        
-        let session = URLSession.shared
-        
-        let task = session.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Error: \(error)")
-                return
-            }
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                print("Respuesta inválida")
-                return
-            }
-            
-            guard (200...299).contains(httpResponse.statusCode) else {
-                print("Código inválido: \(httpResponse.statusCode)")
-                return
-            }
-            
-            guard let data = data else {
-                print("No se recibieron datos")
-                return
-            }
-            
-            let parser = XMLParser(data: data)
-            parser.delegate = self
-            parser.parse()
-            
-            DispatchQueue.main.async {
-                self.tableViewAnuncios.reloadData()
-            }
-        }
-        
-        task.resume()
-                
+        //TODO Hacer la búsqueda actually
+        tableViewAnuncios.reloadData()
+        print("Debería haberse recargado")
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -173,110 +148,84 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return datosXML.count
-    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let datos = datosXML[indexPath.row]
-        return cell
-    }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == "propiedad" {
-            let referencia = attributeDict["referencia"] ?? ""
-            let fecha = attributeDict["fecha"] ?? ""
-            let url = attributeDict["url"] ?? ""
-            let tipoInmueble = attributeDict["tipoInmueble"] ?? ""
-            let tipoOferta = attributeDict["tipoOferta"] ?? ""
-            let descripcionPrincipal = attributeDict["descripcionPrincipal"] ?? ""
-            let codigoPostal = attributeDict["codigoPostal"] ?? ""
-            let provincia = attributeDict["provincia"] ?? ""
-            let localidad = attributeDict["localidad"] ?? ""
-            let direccion = attributeDict["direccion"] ?? ""
-            let geoLocalizacion = attributeDict["geoLocalizacion"] ?? ""
-            let registroTurismo = attributeDict["registroTurismo"] ?? ""
-            let tipoOfertaExt = attributeDict["tipoOfertaExt"] ?? ""
-            let superficieConstruida = attributeDict["superficieConstruida"] ?? ""
-            let superficieTerrazas = attributeDict["superficieTerrazas"] ?? ""
-            let consumoEnergetico = attributeDict["consumoEnergetico"] ?? ""
-            let mostrarDireccion = attributeDict["mostrarDireccion"] ?? ""
-            let tipoArea = attributeDict["tipoArea"] ?? ""
-            let tipoZona = attributeDict["tipoZona"] ?? ""
-            let tipoPlaya = attributeDict["tipoPlaya"] ?? ""
-            let dormitorios = attributeDict["dormitorios"] ?? ""
-            let baños = attributeDict["baños"] ?? ""
-            let aseos = attributeDict["aseos"] ?? ""
-            let armariosEmpotrados = attributeDict["armariosEmpotrados"] ?? ""
-            let terrazas = attributeDict["terrazas"] ?? ""
-            let tipoOrientacion = attributeDict["tipoOrientacion"] ?? ""
-            let tipoAireAcondicionado = attributeDict["tipoAireAcondicionado"] ?? ""
-            let electrodomesticos = attributeDict["electrodomesticos"] ?? ""
-            let tipoPorteria = attributeDict["tipoPorteria"] ?? ""
-            let ascensor = attributeDict["ascensor"] ?? ""
-            let instalacionesDeportivas = attributeDict["instalacionesDeportivas"] ?? ""
-            let tipoSoleria = attributeDict["tipoSoleria"] ?? ""
-            let autobuses = attributeDict["autobuses"] ?? ""
-            let centrosEscolares = attributeDict["centrosEscolares"] ?? ""
-            let espaciosVerdes = attributeDict["espaciosVerdes"] ?? ""
-            let listaImagenes = attributeDict["listaImagenes"] ?? ""
-            let listaVideos = attributeDict["listaVideos"] ?? ""
-            let extensionInmoenter = attributeDict["extensionInmoenter"] ?? ""
-            
-            let datosPropiedades = DatosPropiedades(referencia: referencia, fecha: fecha, url: url, tipoInmueble: tipoInmueble, tipoOferta: tipoOferta, descripcionPrincipal: descripcionPrincipal, codigoPostal: codigoPostal, provincia: provincia, localidad: localidad, direccion: direccion, geoLocalizacion: geoLocalizacion, registroTurismo: registroTurismo, tipoOfertaExt: tipoOfertaExt, superficieConstruida: superficieConstruida, superficieTerrazas: superficieTerrazas, consumoEnergetico: consumoEnergetico, mostrarDireccion: mostrarDireccion, tipoArea: tipoArea, tipoZona: tipoZona, tipoPlaya: tipoPlaya, dormitorios: dormitorios, baños: baños, aseos: aseos, armariosEmpotrados: armariosEmpotrados, terrazas: terrazas, tipoOrientacion: tipoOrientacion, tipoAireAcondicionado: tipoAireAcondicionado, electrodomesticos: electrodomesticos, tipoPorteria: tipoPorteria, ascensor: ascensor, instalacionesDeportivas: instalacionesDeportivas, tipoSoleria: tipoSoleria, autobuses: autobuses, centrosEscolares: centrosEscolares, espaciosVerdes: espaciosVerdes, listaImagenes: listaImagenes, listaVideos: listaVideos, extensionInmoenter: extensionInmoenter)
-            
-            datosXML.append(datosPropiedades)
+            let propiedad = Propiedad()
+            for string in attributeDict {
+                let strvalue = string.value// as NSString
+                switch string.key {
+                case "precio":
+                    propiedad.precio = strvalue// as String
+                    break
+                case "referencia":
+                    propiedad.referencia = strvalue// as String
+                    break
+                case "dormitorios":
+                    propiedad.dormitorios = strvalue// as String
+                    break
+                case "superficieConstruida":
+                    propiedad.superficieConstruida = strvalue// as String
+                    break
+                case "baños":
+                    propiedad.baños = strvalue// as String
+                    break
+                default:
+                    break
+                }
+            }
+            arrayPropiedades.append(propiedad)
+            print(propiedad.referencia)
         }
+    }
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
+    }
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        
+    }
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print("error: ", parseError)
     }
     
-    func parserDidEndDocument(_ parser: XMLParser) {
-        DispatchQueue.main.async {
-            self.tableViewAnuncios.reloadData()
-        }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
     }
 
-}
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return arrayPropiedades.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "celdaAnuncios", for: indexPath) as! BusquedaTableViewCellController
+        
+        let propiedad = arrayPropiedades[indexPath.row]
+        let precio = propiedad.precio
+        let referencia = propiedad.referencia
+        let dormitorios = propiedad.dormitorios
+        let superficieConstruida = propiedad.superficieConstruida
+        let baños = propiedad.baños
+        cell.precioAnuncio.text = precio
+        cell.referenciaAnuncio.text = referencia
+        cell.dormitoriosAnuncio.text = dormitorios
+        cell.superficieAnuncio.text = superficieConstruida
+        cell.bañosAnuncio.text = baños
 
-struct DatosPropiedades {
-    let referencia : String
-    let fecha : String
-    let url : String
-    let tipoInmueble : String
-    let tipoOferta : String
-    let descripcionPrincipal : String
-    let codigoPostal : String
-    let provincia : String
-    let localidad : String
-    let direccion : String
-    let geoLocalizacion : String
-    let registroTurismo : String
-    let tipoOfertaExt : String
-    let superficieConstruida : String
-    let superficieTerrazas : String
-    let consumoEnergetico : String
-    let mostrarDireccion : String
-    let tipoArea : String
-    let tipoZona : String
-    let tipoPlaya : String
-    let dormitorios : String
-    let baños : String
-    let aseos : String
-    let armariosEmpotrados : String
-    let terrazas : String
-    let tipoOrientacion : String
-    let tipoAireAcondicionado : String
-    let electrodomesticos : String
-    let tipoPorteria : String
-    let ascensor : String
-    let instalacionesDeportivas : String
-    let tipoSoleria : String
-    let autobuses : String
-    let centrosEscolares : String
-    let espaciosVerdes : String
-    let listaImagenes : String
-    let listaVideos : String
-    let extensionInmoenter : String
+        // Configure the cell...
+
+        return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "aAnuncio" {
+            let destino = segue.destination as? AnuncioViewController
+            let propiedadClickada = sender as? Propiedad
+            print(propiedadClickada?.referencia ?? "Si ves este mensaje es que la has cagao' :D")
+        }
+    }
 }
 
 protocol StringSelectionDelegate : AnyObject {

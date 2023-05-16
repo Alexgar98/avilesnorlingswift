@@ -393,9 +393,9 @@
                             </pickerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ups-9h-NHG">
                                 <rect key="frame" x="20" y="434" width="374" height="428"/>
-                                <color key="backgroundColor" systemColor="labelColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="140" id="MLu-SJ-8Oo">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="celdaAnuncios" rowHeight="140" id="MLu-SJ-8Oo" customClass="BusquedaTableViewCellController" customModule="avilesnorling" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="374" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MLu-SJ-8Oo" id="Adz-Fn-rxN">
@@ -466,9 +466,15 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="labelColor"/>
                                         <connections>
-                                            <segue destination="7V0-eH-57w" kind="show" id="Bra-0v-h7x"/>
+                                            <outlet property="bañosAnuncio" destination="wrr-Me-oFU" id="5vE-al-GRA"/>
+                                            <outlet property="dormitoriosAnuncio" destination="sd6-P6-5RX" id="aFY-4A-A2P"/>
+                                            <outlet property="imagenAnuncio" destination="kEb-VD-dSI" id="0bt-ZM-SMq"/>
+                                            <outlet property="personasAnuncio" destination="LZr-QQ-X75" id="fPQ-9L-9ec"/>
+                                            <outlet property="precioAnuncio" destination="2eQ-sa-t6T" id="hJq-wO-txw"/>
+                                            <outlet property="referenciaAnuncio" destination="ZgL-5y-YBj" id="bcX-IG-RsQ"/>
+                                            <outlet property="superficieAnuncio" destination="v6V-SC-XWR" id="T75-3P-KZ1"/>
+                                            <segue destination="7V0-eH-57w" kind="show" identifier="aAnuncio" id="Bra-0v-h7x"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
