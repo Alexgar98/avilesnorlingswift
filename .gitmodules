@@ -1,0 +1,3 @@
+[submodule "avilesnorling/Submodules/CheatyXML"]
+	path = avilesnorling/Submodules/CheatyXML
+	url = https://github.com/lobodart/CheatyXML.git

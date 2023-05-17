@@ -13,12 +13,59 @@
 		0413BCC42A0E2BD700D98C3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0413BCC22A0E2BD700D98C3E /* Main.storyboard */; };
 		0413BCC62A0E2BDA00D98C3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0413BCC52A0E2BDA00D98C3E /* Assets.xcassets */; };
 		0413BCC92A0E2BDA00D98C3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0413BCC72A0E2BDA00D98C3E /* LaunchScreen.storyboard */; };
+		048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; };
+		048A00632A152F5B006026F8 /* CheatyXML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		048DB52D2A1238E800419166 /* BusquedaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DB52C2A1238E800419166 /* BusquedaViewController.swift */; };
 		048DB52F2A12392400419166 /* AnuncioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DB52E2A12392400419166 /* AnuncioViewController.swift */; };
 		0492D9A02A137C5F009329AC /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D99F2A137C5F009329AC /* XMLParser.swift */; };
 		0492D9A22A137CB6009329AC /* Propiedad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D9A12A137CB6009329AC /* Propiedad.swift */; };
 		0492D9A42A139D37009329AC /* BusquedaTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D9A32A139D37009329AC /* BusquedaTableViewCellController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		048A00522A152C67006026F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 486D487B1AB4A19D004F6258;
+			remoteInfo = CheatyXML;
+		};
+		048A00542A152C67006026F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 486D48861AB4A19D004F6258;
+			remoteInfo = CheatyXMLTests;
+		};
+		048A005D2A152D84006026F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 048A00582A152D84006026F8 /* CheatyXML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 486D487B1AB4A19D004F6258;
+			remoteInfo = CheatyXML;
+		};
+		048A005F2A152D84006026F8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 048A00582A152D84006026F8 /* CheatyXML.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 486D48861AB4A19D004F6258;
+			remoteInfo = CheatyXMLTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		048A00642A152F5B006026F8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				048A00632A152F5B006026F8 /* CheatyXML.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0413BCB92A0E2BD700D98C3E /* avilesnorling.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = avilesnorling.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +76,8 @@
 		0413BCC52A0E2BDA00D98C3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0413BCC82A0E2BDA00D98C3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0413BCCA2A0E2BDA00D98C3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CheatyXML.xcodeproj; path = "../../../../Downloads/CheatyXML-master/CheatyXML.xcodeproj"; sourceTree = "<group>"; };
+		048A00582A152D84006026F8 /* CheatyXML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CheatyXML.xcodeproj; path = "../../../../../Downloads/CheatyXML-master/CheatyXML.xcodeproj"; sourceTree = "<group>"; };
 		048DB52C2A1238E800419166 /* BusquedaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusquedaViewController.swift; sourceTree = "<group>"; };
 		048DB52E2A12392400419166 /* AnuncioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnuncioViewController.swift; sourceTree = "<group>"; };
 		0492D99F2A137C5F009329AC /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
@@ -41,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +102,7 @@
 			children = (
 				0413BCBB2A0E2BD700D98C3E /* avilesnorling */,
 				0413BCBA2A0E2BD700D98C3E /* Products */,
+				048A00612A152F5A006026F8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +117,7 @@
 		0413BCBB2A0E2BD700D98C3E /* avilesnorling */ = {
 			isa = PBXGroup;
 			children = (
+				048A00572A152D79006026F8 /* Submodules */,
 				0413BCBC2A0E2BD700D98C3E /* AppDelegate.swift */,
 				0413BCBE2A0E2BD700D98C3E /* SceneDelegate.swift */,
 				048DB52E2A12392400419166 /* AnuncioViewController.swift */,
@@ -78,8 +130,42 @@
 				0413BCC52A0E2BDA00D98C3E /* Assets.xcassets */,
 				0413BCC72A0E2BDA00D98C3E /* LaunchScreen.storyboard */,
 				0413BCCA2A0E2BDA00D98C3E /* Info.plist */,
+				048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */,
 			);
 			path = avilesnorling;
+			sourceTree = "<group>";
+		};
+		048A004E2A152C67006026F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				048A00532A152C67006026F8 /* CheatyXML.framework */,
+				048A00552A152C67006026F8 /* CheatyXMLTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		048A00572A152D79006026F8 /* Submodules */ = {
+			isa = PBXGroup;
+			children = (
+				048A00582A152D84006026F8 /* CheatyXML.xcodeproj */,
+			);
+			path = Submodules;
+			sourceTree = "<group>";
+		};
+		048A00592A152D84006026F8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				048A005E2A152D84006026F8 /* CheatyXML.framework */,
+				048A00602A152D84006026F8 /* CheatyXMLTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		048A00612A152F5A006026F8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,6 +178,7 @@
 				0413BCB52A0E2BD700D98C3E /* Sources */,
 				0413BCB62A0E2BD700D98C3E /* Frameworks */,
 				0413BCB72A0E2BD700D98C3E /* Resources */,
+				048A00642A152F5B006026F8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,12 +215,53 @@
 			mainGroup = 0413BCB02A0E2BD700D98C3E;
 			productRefGroup = 0413BCBA2A0E2BD700D98C3E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 048A00592A152D84006026F8 /* Products */;
+					ProjectRef = 048A00582A152D84006026F8 /* CheatyXML.xcodeproj */;
+				},
+				{
+					ProductGroup = 048A004E2A152C67006026F8 /* Products */;
+					ProjectRef = 048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0413BCB82A0E2BD700D98C3E /* avilesnorling */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		048A00532A152C67006026F8 /* CheatyXML.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CheatyXML.framework;
+			remoteRef = 048A00522A152C67006026F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		048A00552A152C67006026F8 /* CheatyXMLTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CheatyXMLTests.xctest;
+			remoteRef = 048A00542A152C67006026F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		048A005E2A152D84006026F8 /* CheatyXML.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CheatyXML.framework;
+			remoteRef = 048A005D2A152D84006026F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		048A00602A152D84006026F8 /* CheatyXMLTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = CheatyXMLTests.xctest;
+			remoteRef = 048A005F2A152D84006026F8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0413BCB72A0E2BD700D98C3E /* Resources */ = {

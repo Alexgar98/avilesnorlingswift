@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+import CheatyXML
 
 class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, XMLParserDelegate, UITableViewDataSource, UITableViewDelegate {
     
@@ -29,7 +30,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var numerosDormitorios : [String] = [String]()
     var tiposInmueble : [String] = [String]()
     
-    var parser = XMLParser()
+    //var parser = XMLParser()
     var arrayPropiedades = [Propiedad]()
     
     override func viewDidLoad() {
@@ -57,15 +58,38 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         numerosDormitorios = ["Dormitorios", "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+", "10+"]
         tiposInmueble = ["Tipo inmueble", "Pisos", "Casas", "Locales"]
         
+        print("Ahora va a parsear")
         let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
-        self.parser = XMLParser(contentsOf: url!)!
+        let parser : CXMLParser! = CXMLParser(contentsOfURL: url!)
+        let referencia : String! = parser["listaPropiedades"]["propiedad"][0]["referencia"].stringValue
+        let dormitorios : String! = parser["listaPropiedades"]["propiedad"][0]["dormitorios"].stringValue
+        let baños : String! = parser["listaPropiedades"]["propiedad"][0]["baños"].stringValue
+        let superficieConstruida : String! = parser["listaPropiedades"]["propiedad"][0]["superficieConstruida"].stringValue
+        print(referencia!)
+        print("Si ha salido A&N Chanquete es que va bien")
+        let numeroPropiedades = parser["listaPropiedades"].numberOfChildElements
+        print(numeroPropiedades)
+        var propiedadPrueba = Propiedad()
+        propiedadPrueba.referencia = referencia!
+        propiedadPrueba.dormitorios = dormitorios!
+        propiedadPrueba.baños = baños!
+        propiedadPrueba.superficieConstruida = superficieConstruida!
+        print(propiedadPrueba.referencia)
+        print("Si ha vuelto a salir A&N Chanquete es que tienes el bug arreglado por fin")
+        print(propiedadPrueba.dormitorios!)
+        print("Deben salir 2")
+        print(propiedadPrueba.baños!)
+        print("Deben salir 1")
+        print(propiedadPrueba.superficieConstruida!)
+        print("Deben salir 70")
+        /*self.parser = XMLParser(contentsOf: url!)!
         self.parser.delegate = self
         let success : Bool = self.parser.parse()
         if success {
             print("success. El número de propiedades es ", arrayPropiedades.count)
         } else {
             print("error")
-        }
+        }*/
 
     }
     
