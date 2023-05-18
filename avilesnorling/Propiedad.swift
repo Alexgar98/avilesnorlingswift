@@ -13,6 +13,7 @@ class Propiedad {
     var dormitorios : String?
     var superficieConstruida : String?
     var baños : String?
+    var imagen : String?
     
     /*init(referencia : String, precio : String?, dormitorios : String?, superficieConstruida : String?, baños : String?) {
         self.referencia = referencia

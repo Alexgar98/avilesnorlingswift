@@ -8,6 +8,10 @@
 import UIKit
 
 class BusquedaTableViewCellController: UITableViewCell {
+    @IBOutlet weak var iconoBanos: UIImageView!
+    @IBOutlet weak var iconoSuperficie: UIImageView!
+    @IBOutlet weak var iconoDormitorios: UIImageView!
+    @IBOutlet weak var iconoPersonas: UIImageView!
     @IBOutlet weak var imagenAnuncio: UIImageView!
     @IBOutlet weak var precioAnuncio: UILabel!
     @IBOutlet weak var referenciaAnuncio: UILabel!

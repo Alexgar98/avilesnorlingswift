@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 import CheatyXML
+import SDWebImage
 
 class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
@@ -51,7 +52,6 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         self.tableViewAnuncios.dataSource = self
         self.tableViewAnuncios.delegate = self
-        self.tableViewAnuncios.register(UINib(nibName: "BusquedaTableViewCellController", bundle: nil), forCellReuseIdentifier: "celdaAnuncios")
         
         tiposAnuncio = ["Oferta", "Venta", "Alquiler", "Vacaciones"]
         ubicaciones = ["Torre del Mar", "Vélez-Málaga", "Algarrobo", "Almáchar", "Almayate", "Benajarafe", "Benamargosa", "Caleta de Vélez", "Canillas de Aceituno", "Torrox", "Málaga", "Málaga oriental"]
@@ -68,22 +68,18 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             let baños : String = parser["listaPropiedades"]["propiedad"][element]["baños"].string ?? ""
             let superficieConstruida : String = parser["listaPropiedades"]["propiedad"][element]["superficieConstruida"].string ?? ""
             let precio : String = parser["listaPropiedades"]["propiedad"][element]["precio"].string ?? ""
+            let imagen : String = parser["listaPropiedades"]["propiedad"][element]["listaImagenes"]["imagen"]["url"].string ?? ""
             let anadir = Propiedad()
             anadir.referencia = referencia
             anadir.dormitorios = dormitorios
             anadir.baños = baños
             anadir.superficieConstruida = superficieConstruida
             anadir.precio = precio
+            anadir.imagen = imagen
             arrayPropiedades.append(anadir)
             
         }
         tableViewAnuncios.reloadData()
-        let numeroPropiedades : Int = parser["listaPropiedades"].numberOfChildElements
-        print(numeroPropiedades)
-        for element in arrayPropiedades {
-            print(element.referencia)
-        }
-
     }
     
     @IBAction func buscar(_ sender: Any) {
@@ -171,7 +167,6 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return arrayPropiedades.count
     }
     
@@ -182,25 +177,64 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let precio = propiedad.precio
         let referencia = propiedad.referencia
         let dormitorios = propiedad.dormitorios
-        let superficieConstruida = propiedad.superficieConstruida
+        let superficieConstruida = propiedad.superficieConstruida ?? ""
         let baños = propiedad.baños
-        cell.precioAnuncio.text = precio
-        cell.referenciaAnuncio.text = referencia
-        cell.dormitoriosAnuncio.text = dormitorios
-        cell.superficieAnuncio.text = superficieConstruida
-        cell.bañosAnuncio.text = baños
+        let imagen = propiedad.imagen ?? ""
+        if precio != "" && precio != "0" {
+            cell.precioAnuncio.text = "\(precio!) €"
+        }
+        else {
+            cell.precioAnuncio.text = "A consultar"
+        }
+        cell.referenciaAnuncio.text = "Ref: \(referencia)"
+        if dormitorios != "" {
+            cell.dormitoriosAnuncio.text = dormitorios
+        }
+        else {
+            cell.dormitoriosAnuncio.isHidden = true
+            cell.iconoDormitorios.isHidden = true
+        }
+        if superficieConstruida != "" {
+            cell.superficieAnuncio.text = "\(superficieConstruida) m2"
+        }
+        else {
+            cell.superficieAnuncio.isHidden = true
+            cell.iconoSuperficie.isHidden = true
+        }
+        if baños != "" {
+            cell.bañosAnuncio.text = baños
+        }
+        else {
+            cell.bañosAnuncio.isHidden = true
+            cell.iconoBanos.isHidden = true
+        }
+        cell.imagenAnuncio.sd_setImage(with: URL(string: imagen))
 
         // Configure the cell...
 
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "aAnuncio" {
-            let destino = segue.destination as? AnuncioViewController
-            let propiedadClickada = sender as? Propiedad
-            print(propiedadClickada?.referencia ?? "Si ves este mensaje es que la has cagao' :D")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let datos = arrayPropiedades[indexPath.row]
+        if let destino = storyboard?.instantiateViewController(withIdentifier: "anuncio") as? AnuncioViewController {
+            destino.datosRecibidos = datos
+            navigationController?.pushViewController(destino, animated: true)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /*if segue.identifier == "aAnuncio" {
+            if let destino = segue.destination as? AnuncioViewController {
+                if let propiedadClickada = sender as? Propiedad {
+                    print(propiedadClickada.referencia)
+                }
+                else {
+                    print("Si ves este mensaje es que la has cagao' :D")
+                }
+            }
+            
+        }*/
     }
 }
 

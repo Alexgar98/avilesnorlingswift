@@ -15,6 +15,8 @@
 		0413BCC92A0E2BDA00D98C3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0413BCC72A0E2BDA00D98C3E /* LaunchScreen.storyboard */; };
 		048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; };
 		048A00632A152F5B006026F8 /* CheatyXML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		048CCD0E2A1642C500742DC4 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 048CCD0D2A1642C500742DC4 /* SDWebImage */; };
+		048CCD102A1642C500742DC4 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 048CCD0F2A1642C500742DC4 /* SDWebImageMapKit */; };
 		048DB52D2A1238E800419166 /* BusquedaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DB52C2A1238E800419166 /* BusquedaViewController.swift */; };
 		048DB52F2A12392400419166 /* AnuncioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DB52E2A12392400419166 /* AnuncioViewController.swift */; };
 		0492D9A02A137C5F009329AC /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D99F2A137C5F009329AC /* XMLParser.swift */; };
@@ -90,6 +92,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048CCD0E2A1642C500742DC4 /* SDWebImage in Frameworks */,
+				048CCD102A1642C500742DC4 /* SDWebImageMapKit in Frameworks */,
 				048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +189,10 @@
 			dependencies = (
 			);
 			name = avilesnorling;
+			packageProductDependencies = (
+				048CCD0D2A1642C500742DC4 /* SDWebImage */,
+				048CCD0F2A1642C500742DC4 /* SDWebImageMapKit */,
+			);
 			productName = avilesnorling;
 			productReference = 0413BCB92A0E2BD700D98C3E /* avilesnorling.app */;
 			productType = "com.apple.product-type.application";
@@ -213,6 +221,9 @@
 				Base,
 			);
 			mainGroup = 0413BCB02A0E2BD700D98C3E;
+			packageReferences = (
+				048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 0413BCBA2A0E2BD700D98C3E /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -504,6 +515,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		048CCD0D2A1642C500742DC4 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		048CCD0F2A1642C500742DC4 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0413BCB12A0E2BD700D98C3E /* Project object */;
 }
