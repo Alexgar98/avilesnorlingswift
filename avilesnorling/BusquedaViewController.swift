@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 import CheatyXML
 
-class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, XMLParserDelegate, UITableViewDataSource, UITableViewDelegate {
+class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var precioHasta: UITextView!
     @IBOutlet weak var tipoAnuncio: UIPickerView!
@@ -30,7 +30,6 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var numerosDormitorios : [String] = [String]()
     var tiposInmueble : [String] = [String]()
     
-    //var parser = XMLParser()
     var arrayPropiedades = [Propiedad]()
     
     override func viewDidLoad() {
@@ -52,6 +51,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         self.tableViewAnuncios.dataSource = self
         self.tableViewAnuncios.delegate = self
+        self.tableViewAnuncios.register(UINib(nibName: "BusquedaTableViewCellController", bundle: nil), forCellReuseIdentifier: "celdaAnuncios")
         
         tiposAnuncio = ["Oferta", "Venta", "Alquiler", "Vacaciones"]
         ubicaciones = ["Torre del Mar", "Vélez-Málaga", "Algarrobo", "Almáchar", "Almayate", "Benajarafe", "Benamargosa", "Caleta de Vélez", "Canillas de Aceituno", "Torrox", "Málaga", "Málaga oriental"]
@@ -61,35 +61,28 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         print("Ahora va a parsear")
         let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
         let parser : CXMLParser! = CXMLParser(contentsOfURL: url!)
-        let referencia : String! = parser["listaPropiedades"]["propiedad"][0]["referencia"].stringValue
-        let dormitorios : String! = parser["listaPropiedades"]["propiedad"][0]["dormitorios"].stringValue
-        let baños : String! = parser["listaPropiedades"]["propiedad"][0]["baños"].stringValue
-        let superficieConstruida : String! = parser["listaPropiedades"]["propiedad"][0]["superficieConstruida"].stringValue
-        print(referencia!)
-        print("Si ha salido A&N Chanquete es que va bien")
-        let numeroPropiedades = parser["listaPropiedades"].numberOfChildElements
+        
+        for element in 0..<parser["listaPropiedades"].numberOfChildElements {
+            let referencia : String = parser["listaPropiedades"]["propiedad"][element]["referencia"].string ?? ""
+            let dormitorios : String = parser["listaPropiedades"]["propiedad"][element]["dormitorios"].string ?? ""
+            let baños : String = parser["listaPropiedades"]["propiedad"][element]["baños"].string ?? ""
+            let superficieConstruida : String = parser["listaPropiedades"]["propiedad"][element]["superficieConstruida"].string ?? ""
+            let precio : String = parser["listaPropiedades"]["propiedad"][element]["precio"].string ?? ""
+            let anadir = Propiedad()
+            anadir.referencia = referencia
+            anadir.dormitorios = dormitorios
+            anadir.baños = baños
+            anadir.superficieConstruida = superficieConstruida
+            anadir.precio = precio
+            arrayPropiedades.append(anadir)
+            
+        }
+        tableViewAnuncios.reloadData()
+        let numeroPropiedades : Int = parser["listaPropiedades"].numberOfChildElements
         print(numeroPropiedades)
-        var propiedadPrueba = Propiedad()
-        propiedadPrueba.referencia = referencia!
-        propiedadPrueba.dormitorios = dormitorios!
-        propiedadPrueba.baños = baños!
-        propiedadPrueba.superficieConstruida = superficieConstruida!
-        print(propiedadPrueba.referencia)
-        print("Si ha vuelto a salir A&N Chanquete es que tienes el bug arreglado por fin")
-        print(propiedadPrueba.dormitorios!)
-        print("Deben salir 2")
-        print(propiedadPrueba.baños!)
-        print("Deben salir 1")
-        print(propiedadPrueba.superficieConstruida!)
-        print("Deben salir 70")
-        /*self.parser = XMLParser(contentsOf: url!)!
-        self.parser.delegate = self
-        let success : Bool = self.parser.parse()
-        if success {
-            print("success. El número de propiedades es ", arrayPropiedades.count)
-        } else {
-            print("error")
-        }*/
+        for element in arrayPropiedades {
+            print(element.referencia)
+        }
 
     }
     
@@ -170,47 +163,6 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             tipoAnuncio.selectRow(indiceTipoAnuncio, inComponent: 0, animated: true)
         }
         
-    }
-    
-    
-    
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "propiedad" {
-            let propiedad = Propiedad()
-            for string in attributeDict {
-                let strvalue = string.value// as NSString
-                switch string.key {
-                case "precio":
-                    propiedad.precio = strvalue// as String
-                    break
-                case "referencia":
-                    propiedad.referencia = strvalue// as String
-                    break
-                case "dormitorios":
-                    propiedad.dormitorios = strvalue// as String
-                    break
-                case "superficieConstruida":
-                    propiedad.superficieConstruida = strvalue// as String
-                    break
-                case "baños":
-                    propiedad.baños = strvalue// as String
-                    break
-                default:
-                    break
-                }
-            }
-            arrayPropiedades.append(propiedad)
-            print(propiedad.referencia)
-        }
-    }
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        
-    }
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        
-    }
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        print("error: ", parseError)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
