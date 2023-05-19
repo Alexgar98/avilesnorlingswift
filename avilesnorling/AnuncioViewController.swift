@@ -7,19 +7,28 @@
 
 import UIKit
 import CheatyXML
+import SDWebImage
 
 class AnuncioViewController: UIViewController {
     var datosRecibidos : Propiedad?
     @IBOutlet weak var referencia: UILabel!
     
+    @IBOutlet weak var scrollImagenes: UIScrollView!
+    @IBOutlet weak var stackImagenes: UIStackView!
+    @IBOutlet weak var scroll: UIScrollView!
     @IBOutlet weak var descripcion: UILabel!
     @IBOutlet weak var categoria: UILabel!
     @IBOutlet weak var titulo: UILabel!
     @IBOutlet weak var precio: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        var arrayUrlImagenes : [String] = []
+        stackImagenes.distribution = .fillEqually
+        scrollImagenes.contentSize = CGSize(width: 1000, height: scrollImagenes.frame.height)
         if let datos = datosRecibidos {
             referencia.text = "Ref.: \(datos.referencia)"
             if (datos.precio == "") {
@@ -36,11 +45,26 @@ class AnuncioViewController: UIViewController {
             for element in 0..<parser["listaPropiedades"].numberOfChildElements {
                 if parser["listaPropiedades"]["propiedad"][element]["referencia"].stringValue == datos.referencia {
 
-                    descripcion.text = parser["listaPropiedades"]["propiedad"][element]["descripcionPrincipal"]["descripcion"][0]["texto"].string
+                    descripcion.text = parser["listaPropiedades"]["propiedad"][element]["descripcionPrincipal"]["descripcion"][0]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
+                    for imagen in 0..<parser["listaPropiedades"]["propiedad"][element]["listaImagenes"].numberOfChildElements {
+                        arrayUrlImagenes.append(parser["listaPropiedades"]["propiedad"][element]["listaImagenes"]["imagen"][imagen]["url"].stringValue)
+                    }
+                    for imagen in arrayUrlImagenes {
+                        let anadir : UIImageView = UIImageView()
+                        anadir.sd_setImage(with: URL(string: imagen))
+                        anadir.contentMode = .scaleAspectFit
+                        stackImagenes.addArrangedSubview(anadir)
+                    }
                     break
                 }
             }
         }
+        let anchoTotal = CGFloat(arrayUrlImagenes.count) * view.frame.width
+        stackImagenes.frame = CGRect(x: 0, y: 100, width: anchoTotal, height: stackImagenes.frame.height)
+        scrollImagenes.contentSize = stackImagenes.frame.size
+        
+        scrollImagenes.isScrollEnabled = true
+        scroll.layoutIfNeeded()
     }
     
 
