@@ -9,17 +9,10 @@ import Foundation
 
 class Propiedad {
     var referencia : String = ""
-    var precio : String?
-    var dormitorios : String?
-    var superficieConstruida : String?
-    var baños : String?
+    var precio : Int?
+    var dormitorios : Int?
+    var superficieConstruida : Int?
+    var baños : Int?
     var imagen : String?
     
-    /*init(referencia : String, precio : String?, dormitorios : String?, superficieConstruida : String?, baños : String?) {
-        self.referencia = referencia
-        self.precio = precio
-        self.dormitorios = dormitorios
-        self.superficieConstruida = superficieConstruida
-        self.baños = baños
-    }*/
 }

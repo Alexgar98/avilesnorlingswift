@@ -13,13 +13,14 @@
 		0413BCC42A0E2BD700D98C3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0413BCC22A0E2BD700D98C3E /* Main.storyboard */; };
 		0413BCC62A0E2BDA00D98C3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0413BCC52A0E2BDA00D98C3E /* Assets.xcassets */; };
 		0413BCC92A0E2BDA00D98C3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0413BCC72A0E2BDA00D98C3E /* LaunchScreen.storyboard */; };
+		048680A52A1CD3B80042116A /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 048680A42A1CD3B80042116A /* SQLite */; };
+		048680A72A1CD4AB0042116A /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048680A62A1CD4AB0042116A /* DatabaseHelper.swift */; };
 		048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; };
 		048A00632A152F5B006026F8 /* CheatyXML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		048CCD0E2A1642C500742DC4 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 048CCD0D2A1642C500742DC4 /* SDWebImage */; };
 		048CCD102A1642C500742DC4 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 048CCD0F2A1642C500742DC4 /* SDWebImageMapKit */; };
 		048DB52D2A1238E800419166 /* BusquedaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DB52C2A1238E800419166 /* BusquedaViewController.swift */; };
 		048DB52F2A12392400419166 /* AnuncioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048DB52E2A12392400419166 /* AnuncioViewController.swift */; };
-		0492D9A02A137C5F009329AC /* XMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D99F2A137C5F009329AC /* XMLParser.swift */; };
 		0492D9A22A137CB6009329AC /* Propiedad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D9A12A137CB6009329AC /* Propiedad.swift */; };
 		0492D9A42A139D37009329AC /* BusquedaTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D9A32A139D37009329AC /* BusquedaTableViewCellController.swift */; };
 /* End PBXBuildFile section */
@@ -78,11 +79,11 @@
 		0413BCC52A0E2BDA00D98C3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0413BCC82A0E2BDA00D98C3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0413BCCA2A0E2BDA00D98C3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		048680A62A1CD4AB0042116A /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CheatyXML.xcodeproj; path = "../../../../Downloads/CheatyXML-master/CheatyXML.xcodeproj"; sourceTree = "<group>"; };
 		048A00582A152D84006026F8 /* CheatyXML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CheatyXML.xcodeproj; path = "../../../../../Downloads/CheatyXML-master/CheatyXML.xcodeproj"; sourceTree = "<group>"; };
 		048DB52C2A1238E800419166 /* BusquedaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusquedaViewController.swift; sourceTree = "<group>"; };
 		048DB52E2A12392400419166 /* AnuncioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnuncioViewController.swift; sourceTree = "<group>"; };
-		0492D99F2A137C5F009329AC /* XMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLParser.swift; sourceTree = "<group>"; };
 		0492D9A12A137CB6009329AC /* Propiedad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Propiedad.swift; sourceTree = "<group>"; };
 		0492D9A32A139D37009329AC /* BusquedaTableViewCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusquedaTableViewCellController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				048680A52A1CD3B80042116A /* SQLite in Frameworks */,
 				048CCD0E2A1642C500742DC4 /* SDWebImage in Frameworks */,
 				048CCD102A1642C500742DC4 /* SDWebImageMapKit in Frameworks */,
 				048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */,
@@ -129,12 +131,12 @@
 				0492D9A32A139D37009329AC /* BusquedaTableViewCellController.swift */,
 				0413BCC02A0E2BD700D98C3E /* HomeViewController.swift */,
 				0492D9A12A137CB6009329AC /* Propiedad.swift */,
-				0492D99F2A137C5F009329AC /* XMLParser.swift */,
 				0413BCC22A0E2BD700D98C3E /* Main.storyboard */,
 				0413BCC52A0E2BDA00D98C3E /* Assets.xcassets */,
 				0413BCC72A0E2BDA00D98C3E /* LaunchScreen.storyboard */,
 				0413BCCA2A0E2BDA00D98C3E /* Info.plist */,
 				048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */,
+				048680A62A1CD4AB0042116A /* DatabaseHelper.swift */,
 			);
 			path = avilesnorling;
 			sourceTree = "<group>";
@@ -192,6 +194,7 @@
 			packageProductDependencies = (
 				048CCD0D2A1642C500742DC4 /* SDWebImage */,
 				048CCD0F2A1642C500742DC4 /* SDWebImageMapKit */,
+				048680A42A1CD3B80042116A /* SQLite */,
 			);
 			productName = avilesnorling;
 			productReference = 0413BCB92A0E2BD700D98C3E /* avilesnorling.app */;
@@ -223,6 +226,7 @@
 			mainGroup = 0413BCB02A0E2BD700D98C3E;
 			packageReferences = (
 				048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				048680A32A1CD3B80042116A /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 			);
 			productRefGroup = 0413BCBA2A0E2BD700D98C3E /* Products */;
 			projectDirPath = "";
@@ -293,10 +297,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				048DB52D2A1238E800419166 /* BusquedaViewController.swift in Sources */,
+				048680A72A1CD4AB0042116A /* DatabaseHelper.swift in Sources */,
 				0492D9A42A139D37009329AC /* BusquedaTableViewCellController.swift in Sources */,
 				0492D9A22A137CB6009329AC /* Propiedad.swift in Sources */,
 				0413BCC12A0E2BD700D98C3E /* HomeViewController.swift in Sources */,
-				0492D9A02A137C5F009329AC /* XMLParser.swift in Sources */,
 				0413BCBD2A0E2BD700D98C3E /* AppDelegate.swift in Sources */,
 				0413BCBF2A0E2BD700D98C3E /* SceneDelegate.swift in Sources */,
 				048DB52F2A12392400419166 /* AnuncioViewController.swift in Sources */,
@@ -517,6 +521,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		048680A32A1CD3B80042116A /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.14.1;
+			};
+		};
 		048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -528,6 +540,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		048680A42A1CD3B80042116A /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 048680A32A1CD3B80042116A /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
 		048CCD0D2A1642C500742DC4 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */;

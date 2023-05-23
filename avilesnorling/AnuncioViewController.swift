@@ -42,7 +42,7 @@ class AnuncioViewController: UIViewController {
         scrollImagenes.contentSize = CGSize(width: 1000, height: scrollImagenes.frame.height)
         if let datos = datosRecibidos {
             referencia.text = "Ref.: \(datos.referencia)"
-            if (datos.precio == "") {
+            if (datos.precio == 0) {
                 precio.text = "A consultar"
             }
             else {

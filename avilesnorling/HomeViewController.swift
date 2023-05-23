@@ -22,6 +22,13 @@ class HomeViewController: UIViewController, StringSelectionDelegate {
     var ubicacion : String = ""
     var tipoAnuncio : String = ""
     
+    override func viewWillAppear(_ animated: Bool) {
+        //TODO SQLite
+        let helper = DatabaseHelper()
+        helper.remake()
+        helper.consultar(consulta: [])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

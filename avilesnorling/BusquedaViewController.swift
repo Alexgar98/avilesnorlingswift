@@ -25,6 +25,8 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     weak var delegate : StringSelectionDelegate?
     var ubicacionElegida : String?
     var tipoAnuncioElegido : String?
+    var dormitoriosElegidos : String?
+    var tipoInmuebleElegido : String?
     
     var tiposAnuncio : [String] = [String]()
     var ubicaciones : [String] = [String]()
@@ -33,11 +35,14 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     var arrayPropiedades = [Propiedad]()
     
+    let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
+    var parser : CXMLParser!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        parser = CXMLParser(contentsOfURL: url!)
         self.tipoAnuncio.delegate = self
         self.tipoAnuncio.dataSource = self
         
@@ -59,33 +64,18 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         tiposInmueble = ["Tipo inmueble", "Pisos", "Casas", "Locales"]
         
         print("Ahora va a parsear")
-        let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
-        let parser : CXMLParser! = CXMLParser(contentsOfURL: url!)
         
-        for element in 0..<parser["listaPropiedades"].numberOfChildElements {
-            let referencia : String = parser["listaPropiedades"]["propiedad"][element]["referencia"].string ?? ""
-            let dormitorios : String = parser["listaPropiedades"]["propiedad"][element]["dormitorios"].string ?? ""
-            let baños : String = parser["listaPropiedades"]["propiedad"][element]["baños"].string ?? ""
-            let superficieConstruida : String = parser["listaPropiedades"]["propiedad"][element]["superficieConstruida"].string ?? ""
-            let precio : String = parser["listaPropiedades"]["propiedad"][element]["precio"].string ?? ""
-            let imagen : String = parser["listaPropiedades"]["propiedad"][element]["listaImagenes"]["imagen"]["url"].string ?? ""
-            let anadir = Propiedad()
-            anadir.referencia = referencia
-            anadir.dormitorios = dormitorios
-            anadir.baños = baños
-            anadir.superficieConstruida = superficieConstruida
-            anadir.precio = precio
-            anadir.imagen = imagen
-            arrayPropiedades.append(anadir)
-            
-        }
+        parsing()
+        
         tableViewAnuncios.reloadData()
+        print(arrayPropiedades.count)
     }
     
     @IBAction func buscar(_ sender: Any) {
-        //TODO Hacer la búsqueda actually
+        parsing()
         tableViewAnuncios.reloadData()
         print("Debería haberse recargado")
+        print(arrayPropiedades.count)
     }
     
     /*
@@ -145,6 +135,16 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             delegate?.didSelectString(tipoAnuncioElegido!)
             pickerView.selectRow(row, inComponent: component, animated: true)
         }
+        else if pickerView == dormitorios {
+            dormitoriosElegidos = numerosDormitorios[row]
+            delegate?.didSelectString(dormitoriosElegidos!)
+            pickerView.selectRow(row, inComponent: component, animated: true)
+        }
+        else if pickerView == tipoInmueble {
+            tipoInmuebleElegido = tiposInmueble[row]
+            delegate?.didSelectString(tipoInmuebleElegido!)
+            pickerView.selectRow(row, inComponent: component, animated: true)
+        }
         
         //TODO guardar datos
     }
@@ -177,32 +177,32 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let precio = propiedad.precio
         let referencia = propiedad.referencia
         let dormitorios = propiedad.dormitorios
-        let superficieConstruida = propiedad.superficieConstruida ?? ""
+        let superficieConstruida = propiedad.superficieConstruida ?? 0
         let baños = propiedad.baños
         let imagen = propiedad.imagen ?? ""
-        if precio != "" && precio != "0" {
+        if precio != 0 {
             cell.precioAnuncio.text = "\(precio!) €"
         }
         else {
             cell.precioAnuncio.text = "A consultar"
         }
         cell.referenciaAnuncio.text = "Ref: \(referencia)"
-        if dormitorios != "" {
-            cell.dormitoriosAnuncio.text = dormitorios
+        if dormitorios != 0 {
+            cell.dormitoriosAnuncio.text = "\(dormitorios!)"
         }
         else {
             cell.dormitoriosAnuncio.isHidden = true
             cell.iconoDormitorios.isHidden = true
         }
-        if superficieConstruida != "" {
+        if superficieConstruida != 0 {
             cell.superficieAnuncio.text = "\(superficieConstruida) m2"
         }
         else {
             cell.superficieAnuncio.isHidden = true
             cell.iconoSuperficie.isHidden = true
         }
-        if baños != "" {
-            cell.bañosAnuncio.text = baños
+        if baños != 0 {
+            cell.bañosAnuncio.text = "\(baños!)"
         }
         else {
             cell.bañosAnuncio.isHidden = true
@@ -223,19 +223,71 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        /*if segue.identifier == "aAnuncio" {
-            if let destino = segue.destination as? AnuncioViewController {
-                if let propiedadClickada = sender as? Propiedad {
-                    print(propiedadClickada.referencia)
-                }
-                else {
-                    print("Si ves este mensaje es que la has cagao' :D")
+    func propiedadNueva(elemento : Int) {
+        let referencia : String = parser["listaPropiedades"]["propiedad"][elemento]["referencia"].string ?? ""
+        let dormitorios : Int = parser["listaPropiedades"]["propiedad"][elemento]["dormitorios"].int ?? 0
+        let baños : Int = parser["listaPropiedades"]["propiedad"][elemento]["baños"].int ?? 0
+        let superficieConstruida : Int = parser["listaPropiedades"]["propiedad"][elemento]["superficieConstruida"].int ?? 0
+        let precio : Int = parser["listaPropiedades"]["propiedad"][elemento]["precio"].int ?? 0
+        let imagen : String = parser["listaPropiedades"]["propiedad"][elemento]["listaImagenes"]["imagen"]["url"].string ?? ""
+        let anadir = Propiedad()
+        anadir.referencia = referencia
+        anadir.dormitorios = dormitorios
+        anadir.baños = baños
+        anadir.superficieConstruida = superficieConstruida
+        anadir.precio = precio
+        anadir.imagen = imagen
+        arrayPropiedades.append(anadir)
+    }
+    
+    func parsing()
+    {
+        arrayPropiedades = []
+        for element in 0..<parser["listaPropiedades"].numberOfChildElements {
+            if parser["listaPropiedades"]["propiedad"][element]["localidad"].stringValue == ubicacionElegida && ubicacionElegida != "Málaga oriental" {
+                switch tipoAnuncioElegido {
+                case "Oferta":
+                    propiedadNueva(elemento: element)
+                case "Venta":
+                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "1" {
+                        propiedadNueva(elemento: element)
+                    }
+                case "Alquiler":
+                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string != "16" {
+                        propiedadNueva(elemento: element)
+                    }
+                case "Vacaciones":
+                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string == "16" {
+                        propiedadNueva(elemento: element)
+                    }
+                default:
+                    break
                 }
             }
-            
-        }*/
+            else if ubicacionElegida == "Málaga oriental" {
+                switch tipoAnuncioElegido {
+                case "Oferta":
+                    propiedadNueva(elemento: element)
+                case "Venta":
+                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "1" {
+                        propiedadNueva(elemento: element)
+                    }
+                case "Alquiler":
+                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string != "16" {
+                        propiedadNueva(elemento: element)
+                    }
+                case "Vacaciones":
+                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string == "16" {
+                        propiedadNueva(elemento: element)
+                    }
+                default:
+                    break
+                }
+            }
+        
+        }
     }
+    
 }
 
 protocol StringSelectionDelegate : AnyObject {
