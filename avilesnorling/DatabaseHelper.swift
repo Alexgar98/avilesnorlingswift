@@ -68,8 +68,10 @@ class DatabaseHelper {
                 
                 let insert = propiedades.insert(referencia <- referenciaEncontrada, tipoAnuncio <- tipoAnuncioEncontrado, tipoInmueble <- tipoInmuebleEncontrado, ubicacion <- ubicacionEncontrada, dormitorios <- dormitoriosEncontrados, superficie <- superficieEncontrada, precio <- precioEncontrado, vacacional <- vacacionalEncontrado, banos <- banosEncontrados, imagen <- imagenEncontrada)
                 let rowid = try db?.run(insert)
+                /*for propiedad in try db!.prepare(propiedades.select(tipoInmueble)) {
+                    print(propiedad[tipoInmueble])
+                }*/
             }
-            try print(db!.scalar(propiedades.count))
         }
         catch {
             print(error)
@@ -99,7 +101,7 @@ class DatabaseHelper {
     
     func consultar(consulta : [String : String]) -> [Propiedad] {
         do {
-            let aDevolver : [Propiedad] = []
+            var aDevolver : [Propiedad] = []
             let db : Connection?
             let paths = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)
             if let libraryPath = paths.first {
@@ -122,18 +124,53 @@ class DatabaseHelper {
             let banos = Expression<Int>("baños")
             let imagen = Expression<String>("imagen")
             
-            var query : Table
-            if (consulta.isEmpty) {
-                query = propiedades
-            }
-            else {
+            var query = propiedades
+            if (!consulta.isEmpty) {
                 if consulta.keys.contains("referencia") {
-                    let referenciaValue = consulta["referencia"]
-                    let filterExpression = referencia.description == Expression<String>(referenciaValue!)
-                    query = propiedades.filter(filterExpression)
+                    if let referenciaValue = consulta["referencia"] {
+                        query = query.filter(referencia == referenciaValue)
+                    }
                 }
-                else {
-                    query = propiedades //TODO resto de cosas
+                if consulta.keys.contains("tipoAnuncio") {
+                    if let anuncioValue = consulta["tipoAnuncio"] {
+                        query = query.filter(tipoAnuncio == anuncioValue)
+                        if (anuncioValue != "1") { //Las ventas no son vacacionales
+                            if let vacacionalValue = consulta["vacacional"] {
+                                let vacacionalFilter = vacacional == (vacacionalValue == "true")
+                                query = query.filter(vacacionalFilter)
+                            }
+                        }
+                    }
+                }
+                if consulta.keys.contains("tipoInmueble") {
+                    if let inmuebleValue = consulta["tipoInmueble"] {
+                        query = query.filter(tipoInmueble == inmuebleValue)
+                    } //Se descodifica luego
+                }
+                if consulta.keys.contains("ubicacion") {
+                    if let ubicacionValue = consulta["ubicacion"] {
+                        query = query.filter(ubicacion == ubicacionValue)
+                    }
+                }
+                if consulta.keys.contains("dormitorios") {
+                    if let dormitoriosValue = consulta["dormitorios"] {
+                        query = query.filter(dormitorios >= Int(dormitoriosValue)!)
+                    }
+                }
+                if consulta.keys.contains("superficie") {
+                    if let superficieValue = consulta["superficie"] {
+                        query = query.filter(superficie >= Int(superficieValue) ?? 0)
+                    }
+                }
+                if consulta.keys.contains("precioDesde") {
+                    if let precioValue = consulta["precioDesde"] {
+                        query = query.filter(precio >= Int(precioValue) ?? 0)
+                    }
+                }
+                if consulta.keys.contains("precioHasta") {
+                    if let precioValue = consulta["precioHasta"] {
+                        query = query.filter(precio <= Int(precioValue)!)
+                    }
                 }
             }
             
@@ -146,10 +183,8 @@ class DatabaseHelper {
                 anadir.superficieConstruida = propiedad[superficie]
                 anadir.baños = propiedad[banos]
                 anadir.imagen = propiedad[imagen]
-                
-                contador += 1
+                aDevolver.append(anadir)
             }
-            print(contador)
             return aDevolver
             
         }

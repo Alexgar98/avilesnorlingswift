@@ -10,7 +10,7 @@ import Foundation
 import CheatyXML
 import SDWebImage
 
-class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
     @IBOutlet weak var precioHasta: UITextView!
     @IBOutlet weak var tipoAnuncio: UIPickerView!
@@ -34,15 +34,33 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var tiposInmueble : [String] = [String]()
     
     var arrayPropiedades = [Propiedad]()
+    var consulta : [String : String] = [:]
     
-    let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
-    var parser : CXMLParser!
+    //let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
+    //var parser : CXMLParser!
+    let helper : DatabaseHelper = DatabaseHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        parser = CXMLParser(contentsOfURL: url!)
+        self.referencia.delegate = self
+        self.superficie.delegate = self
+        self.precioDesde.delegate = self
+        self.precioHasta.delegate = self
+        
+        referencia.text = "Referencia"
+        referencia.textColor = UIColor.lightGray
+        
+        superficie.text = "Sup. Desde"
+        superficie.textColor = UIColor.lightGray
+        
+        precioDesde.text = "Precio Desde"
+        precioDesde.textColor = UIColor.lightGray
+        
+        precioHasta.text = "Precio Hasta"
+        precioHasta.textColor = UIColor.lightGray
+        
         self.tipoAnuncio.delegate = self
         self.tipoAnuncio.dataSource = self
         
@@ -63,16 +81,92 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         numerosDormitorios = ["Dormitorios", "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+", "10+"]
         tiposInmueble = ["Tipo inmueble", "Pisos", "Casas", "Locales"]
         
-        print("Ahora va a parsear")
-        
-        parsing()
+        //print("Ahora va a parsear")
+
+        //parsing()
         
         tableViewAnuncios.reloadData()
         print(arrayPropiedades.count)
     }
     
     @IBAction func buscar(_ sender: Any) {
-        parsing()
+        let referenciaElegida = referencia.text
+        let superficieElegida = superficie.text
+        let precioDesdeElegido = precioDesde.text
+        let precioHastaElegido = precioHasta.text
+        if ubicacionElegida != "Málaga oriental" {
+            consulta["ubicacion"] = ubicacionElegida
+        }
+        else {
+            consulta["ubicacion"] = nil
+        }
+        if tipoAnuncioElegido != "Oferta" {
+            switch tipoAnuncioElegido {
+            case "Venta":
+                consulta["tipoAnuncio"] = "1"
+            case "Alquiler":
+                consulta["tipoAnuncio"] = "2"
+                consulta["vacacional"] = "false"
+            case "Vacaciones":
+                consulta["tipoAnuncio"] = "2"
+                consulta["vacacional"] = "true"
+            default:
+                break
+            }
+        }
+        else {
+            consulta["tipoAnuncio"] = nil
+        }
+        if dormitoriosElegidos != "Dormitorios" {
+            //consulta["dormitorios"] = dormitoriosElegidos?.drop(while: { $0 == "+" }) as? String
+            if let dormitoriosElegidos = dormitoriosElegidos, dormitoriosElegidos.hasSuffix("+") {
+                consulta["dormitorios"] = String(dormitoriosElegidos.dropLast())
+            }
+        }
+        else {
+            consulta["dormitorios"] = nil
+        }
+        
+        if tipoInmuebleElegido != "Tipo inmueble" {
+            switch tipoInmuebleElegido {
+            case "Pisos":
+                consulta["tipoInmueble"] = "2"
+            case "Casas":
+                consulta["tipoInmueble"] = "16"
+            case "Locales":
+                consulta["tipoInmueble"] = "512"
+            default:
+                break
+            }
+        }
+        else {
+            consulta["tipoInmueble"] = nil
+        }
+        if !referenciaElegida!.isEmpty {
+            consulta["referencia"] = referenciaElegida
+        }
+        else {
+            consulta["referencia"] = nil
+        }
+        if !superficieElegida!.isEmpty {
+            consulta["superficie"] = superficieElegida
+        }
+        else {
+            consulta["superficie"] = nil
+        }
+        if !precioDesdeElegido!.isEmpty {
+            consulta["precioDesde"] = precioDesdeElegido
+        }
+        else {
+            consulta["precioDesde"] = nil
+        }
+        if !precioHastaElegido!.isEmpty {
+            consulta["precioHasta"] = precioHastaElegido
+        }
+        else {
+            consulta["precioHasta"] = nil
+        }
+        arrayPropiedades = helper.consultar(consulta: consulta)
         tableViewAnuncios.reloadData()
         print("Debería haberse recargado")
         print(arrayPropiedades.count)
@@ -154,9 +248,23 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         if let indiceUbicacion = ubicaciones.firstIndex(of: ubicacionElegida!) {
             ubicacion.selectRow(indiceUbicacion, inComponent: 0, animated: true)
+            consulta["ubicacion"] = ubicacionElegida
         }
         if let indiceTipoAnuncio = tiposAnuncio.firstIndex(of: tipoAnuncioElegido!) {
             tipoAnuncio.selectRow(indiceTipoAnuncio, inComponent: 0, animated: true)
+            switch tipoAnuncioElegido {
+            case "Venta":
+                consulta["tipoAnuncio"] = "1"
+            case "Alquiler":
+                consulta["tipoAnuncio"] = "2"
+                consulta["vacacional"] = "false"
+            case "Vacaciones":
+                consulta["tipoAnuncio"] = "2"
+                consulta["vacacional"] = "true"
+            default:
+                break
+            }
+            arrayPropiedades = helper.consultar(consulta: consulta)
         }
         
     }
@@ -223,68 +331,28 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
     }
     
-    func propiedadNueva(elemento : Int) {
-        let referencia : String = parser["listaPropiedades"]["propiedad"][elemento]["referencia"].string ?? ""
-        let dormitorios : Int = parser["listaPropiedades"]["propiedad"][elemento]["dormitorios"].int ?? 0
-        let baños : Int = parser["listaPropiedades"]["propiedad"][elemento]["baños"].int ?? 0
-        let superficieConstruida : Int = parser["listaPropiedades"]["propiedad"][elemento]["superficieConstruida"].int ?? 0
-        let precio : Int = parser["listaPropiedades"]["propiedad"][elemento]["precio"].int ?? 0
-        let imagen : String = parser["listaPropiedades"]["propiedad"][elemento]["listaImagenes"]["imagen"]["url"].string ?? ""
-        let anadir = Propiedad()
-        anadir.referencia = referencia
-        anadir.dormitorios = dormitorios
-        anadir.baños = baños
-        anadir.superficieConstruida = superficieConstruida
-        anadir.precio = precio
-        anadir.imagen = imagen
-        arrayPropiedades.append(anadir)
+    func textViewDidBeginEditing(_ textView : UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.white
+        }
     }
     
-    func parsing()
-    {
-        arrayPropiedades = []
-        for element in 0..<parser["listaPropiedades"].numberOfChildElements {
-            if parser["listaPropiedades"]["propiedad"][element]["localidad"].stringValue == ubicacionElegida && ubicacionElegida != "Málaga oriental" {
-                switch tipoAnuncioElegido {
-                case "Oferta":
-                    propiedadNueva(elemento: element)
-                case "Venta":
-                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "1" {
-                        propiedadNueva(elemento: element)
-                    }
-                case "Alquiler":
-                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string != "16" {
-                        propiedadNueva(elemento: element)
-                    }
-                case "Vacaciones":
-                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string == "16" {
-                        propiedadNueva(elemento: element)
-                    }
-                default:
-                    break
-                }
+    func textViewDidEndEditing(_ textView : UITextView) {
+        if textView.text.isEmpty {
+            switch textView {
+            case referencia:
+                textView.text = "Referencia"
+            case superficie:
+                textView.text = "Sup. Desde"
+            case precioDesde:
+                textView.text = "Precio Desde"
+            case precioHasta:
+                textView.text = "Precio Hasta"
+            default:
+                textView.text = ""
             }
-            else if ubicacionElegida == "Málaga oriental" {
-                switch tipoAnuncioElegido {
-                case "Oferta":
-                    propiedadNueva(elemento: element)
-                case "Venta":
-                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "1" {
-                        propiedadNueva(elemento: element)
-                    }
-                case "Alquiler":
-                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string != "16" {
-                        propiedadNueva(elemento: element)
-                    }
-                case "Vacaciones":
-                    if parser["listaPropiedades"]["propiedad"][element]["tipoOferta"].string == "2" && parser["listaPropiedades"]["propiedad"][element]["tipoOfertaExt"].string == "16" {
-                        propiedadNueva(elemento: element)
-                    }
-                default:
-                    break
-                }
-            }
-        
+            textView.textColor = UIColor.lightGray
         }
     }
     

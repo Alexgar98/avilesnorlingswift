@@ -26,7 +26,6 @@ class HomeViewController: UIViewController, StringSelectionDelegate {
         //TODO SQLite
         let helper = DatabaseHelper()
         helper.remake()
-        helper.consultar(consulta: [])
     }
     
     override func viewDidLoad() {
