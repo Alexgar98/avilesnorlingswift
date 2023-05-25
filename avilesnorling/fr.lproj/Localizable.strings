@@ -1,0 +1,94 @@
+/* 
+  Localizable.strings
+  avilesnorling
+
+  Created by Mac on 25/5/23.
+  
+*/
+
+"venta" = "Vente";
+"alquiler" = "De location";
+"vacaciones" = "De vacances";
+"referencia" = "Références";
+"oferta" = "Offre";
+"tipoInmueble" = "Type de propriété";
+"dormitorios" = "Chambres";
+"superficie" = "Surface de";
+"personas" = "Invités";
+"fecha" = "Date";
+"buscar" = "Chercher";
+"precioDesde" = "Prix à partir";
+"precioHasta" = "Prix à";
+"descripcion" = "Description:";
+"caracteristicas" = "Caractéristiques:";
+"reservar" = "Book";
+"pisos" = "Appartements";
+"casas" = "Maisons";
+"locales" = "Locaux";
+"tiendas" = "Magasin";
+"tipo" = "Type";
+"zona" = "Zone";
+"contacto" = "Contacter";
+"fechaNoValida" = "La date sélectionnée n'est pas valide";
+"noSePudoConectar" = "Impossible de se connecter à la base de données. Veuillez réessayer plus tard";
+"valoresInvalidos" = "Les valeurs sélectionnées ne sont pas valides. Veuillez réessayer";
+"estudio" = "Studio";
+"apartamento" = "Appartement";
+"piso" = "Appartement";
+"casa" = "Maison";
+"chalet" = "Pavillon";
+"duplex" = "Duplex";
+"villa" = "Villa";
+"local" = "Local";
+"propiedad" = "Propriété";
+"en" = "à";
+"generales" = "Général";
+"superficies" = "Surfaces";
+"equipamientos" = "Equipment";
+"calidades" = "Qualités";
+"codigoTuristico" = "Code d'enregistrement Of. Tourisme";
+"ascensor" = "ascenseur";
+"salones" = "Salon";
+"banos" = "salle de bains";
+"empotrados" = "placards";
+"terrazas" = "terrasse";
+"lavadero" = "Lavadero";
+"construido" = "Construit";
+"util" = "Utile";
+"piscina" = "Piscine";
+"jardines" = "Jardins";
+"cocinaIndependiente" = "Cuisine Indépendante";
+"cocinaAmericana" = "Cuisine Américaine";
+"cocinaAmueblada" = "Cuisine Équiée";
+"electrodomesticos" = "Appareils";
+"instalacion" = "Aire Acondicionado / Instalación";
+"climatizador" = "Contrôle du climat";
+"preinstalacion" = "Aire Acondicionado / Preinstalación";
+"central" = "Climatisation centrale";
+"portero" = "Portero automático";
+"videoportero" = "Vidéo intercom";
+"soleriaCeramica" = "Plancher en céramique";
+"soleriaParquet" = "Parquet";
+"tarima" = "Pallet";
+"soleriaMarmol" = "Revêtement de sol en marbre";
+"zonaUrbana" = "Zone urbaine";
+"urbanizacion" = "Urbanisation";
+"metrosPlaya" = "à 500 mètres de la plage";
+"segundaLinea" = "2ème ligne de la plage";
+"primeraLinea" = "1ère ligne de la plage";
+"zonaCostera" = "dans la zone côtière";
+"orientacionEste" = "Orientation est";
+"orientacionOeste" = "Orientation ouest";
+"orientacionSur" = "Orientation sud";
+"orientacionSuroeste" = "Orientation sudouest";
+"orientacionSureste" = "Orientation sudest";
+"orientacionNoroeoste" = "Orientation nordouest";
+"escuelas" = "Écoles";
+"zonasDeportivas" = "Installations sportives";
+"zonasVerdes" = "Espaces verts";
+"bus" = "Autobus";
+"planta" = "ª étage";
+"situacion" = "Endroit";
+"cercaDe" = "Proche de";
+"comunicaciones" = "Communications";
+"consultar" = "Sur demande";

@@ -1,0 +1,94 @@
+/* 
+  Localizable.strings
+  avilesnorling
+
+  Created by Mac on 25/5/23.
+  
+*/
+
+"venta" = "Verkauf";
+"alquiler" = "Vermietung";
+"vacaciones" = "Ferien";
+"referencia" = "Referenz";
+"oferta" = "Angebot";
+"tipoInmueble" = "Art der Immobilie";
+"dormitorios" = "Schlafzimmer";
+"superficie" = "Fläche ab";
+"personas" = "Gäste";
+"fecha" = "Datum";
+"buscar" = "Suche";
+"precioDesde" = "Preis von";
+"precioHasta" = "Preis auf";
+"descripcion" = "Beschreibung:";
+"caracteristicas" = "Eigenschaften:";
+"reservar" = "Book";
+"pisos" = "Wohnungen";
+"casas" = "Häuser";
+"locales" = "Lokale";
+"tiendas" = "Geschäft";
+"tipo" = "Typ";
+"zona" = "Bereich";
+"contacto" = "Kontakt";
+"fechaNoValida" = "Das ausgewählte Datum ist ungültig";
+"noSePudoConectar" = "Es konnte keine Verbindung zur Datenbank hergestellt werden. Bitte versuchen Sie es später erneut";
+"valoresInvalidos" = "Die ausgewählten Werte sind ungültig. Bitte versuche es erneut";
+"estudio" = "Studie";
+"apartamento" = "Apartment";
+"piso" = "Wohnung";
+"casa" = "Haus";
+"chalet" = "Chalet";
+"duplex" = "Duplex";
+"villa" = "Villa";
+"local" = "Lokal";
+"propiedad" = "Eigentum";
+"en" = "in";
+"generales" = "General";
+"superficies" = "Oberflächen";
+"equipamientos" = "Ausrüstung";
+"calidades" = "Qualitäten";
+"codigoTuristico" = "Tourismusbüro Registercode";
+"ascensor" = "Aufzug";
+"salones" = "Salon";
+"banos" = "Badezimmer";
+"empotrados" = "Einbauschränk";
+"terrazas" = "Terrasse";
+"lavadero" = "Wäsche";
+"construido" = "Gebaute";
+"util" = "Nützlich";
+"piscina" = "Pool";
+"jardines" = "Gärten";
+"cocinaIndependiente" = "Unabhängige Küche";
+"cocinaAmericana" = "Amerikanische Küche";
+"cocinaAmueblada" = "Einbauküche";
+"electrodomesticos" = "Küchengeräte";
+"instalacion" = "Klimaanlage / Installation";
+"climatizador" = "Klimatisierung";
+"preinstalacion" = "Klimaanlage / Vorinstallation";
+"central" = "Zentrale Klimaanlage";
+"portero" = "Türsprechanlage";
+"videoportero" = "Video Türoffnung";
+"soleriaCeramica" = "Keramikböden";
+"soleriaParquet" = "Parkettboden";
+"tarima" = "Bühne";
+"soleriaMarmol" = "Marmorboden";
+"zonaUrbana" = "Städtisches Gebiet";
+"urbanizacion" = "Verstädterung";
+"metrosPlaya" = "500 Meter vom Strand entfernt";
+"segundaLinea" = "2ª Strandlinie";
+"primeraLinea" = "1ª Strandlinie";
+"zonaCostera" = "In der Küstenzone";
+"orientacionEste" = "Ostausrichtung";
+"orientacionOeste" = "Westorientierung";
+"orientacionSur" = "Südorientierung";
+"orientacionSuroeste" = "Südwest-Orientierung";
+"orientacionSureste" = "Südost-Orientierung";
+"orientacionNoroeoste" = "Nordwest-Orientierung";
+"escuelas" = "Schulen";
+"zonasDeportivas" = "Sportplätze";
+"zonasVerdes" = "Grünflächen";
+"bus" = "Bus";
+"planta" = "ª etage";
+"situacion" = "Lage";
+"cercaDe" = "Nahe bei";
+"comunicaciones" = "Kommunikation";
+"consultar" = "Auf Anfrage";

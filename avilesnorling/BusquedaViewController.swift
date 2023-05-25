@@ -21,6 +21,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var dormitorios: UIPickerView!
     @IBOutlet weak var tipoInmueble: UIPickerView!
     
+    @IBOutlet weak var pickerIdiomas: UIPickerView!
     @IBOutlet weak var tableViewAnuncios: UITableView!
     weak var delegate : StringSelectionDelegate?
     var ubicacionElegida : String?
@@ -32,6 +33,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var ubicaciones : [String] = [String]()
     var numerosDormitorios : [String] = [String]()
     var tiposInmueble : [String] = [String]()
+    var arrayIdiomas : [String] = [String]()
     
     var arrayPropiedades = [Propiedad]()
     var consulta : [String : String] = [:]
@@ -43,6 +45,8 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
+        changeLanguage(lang: "es")
         // Do any additional setup after loading the view.
         self.referencia.delegate = self
         self.superficie.delegate = self
@@ -199,6 +203,9 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         else if pickerView == tipoInmueble {
             return tiposInmueble.count
         }
+        else if pickerView == pickerIdiomas {
+            return arrayIdiomas.count
+        }
         return 0
     }
     
@@ -214,6 +221,9 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
         else if pickerView == tipoInmueble {
             return tiposInmueble[row]
+        }
+        else if pickerView == pickerIdiomas {
+            return arrayIdiomas[row]
         }
         return nil
     }
@@ -354,6 +364,10 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             }
             textView.textColor = UIColor.lightGray
         }
+    }
+    
+    func changeLanguage(lang: String) {
+        
     }
     
 }

@@ -1,0 +1,94 @@
+/* 
+  Localizable.strings
+  avilesnorling
+
+  Created by Mac on 25/5/23.
+  
+*/
+
+"venta" = "Försäljning";
+"alquiler" = "Uthyrning";
+"vacaciones" = "Högtider";
+"referencia" = "Referensnr";
+"oferta" = "Erbjudande";
+"tipoInmueble" = "Fastighetstyp";
+"dormitorios" = "Sovrum";
+"superficie" = "Omradet fran";
+"personas" = "Gäster";
+"fecha" = "Datum";
+"buscar" = "Sök";
+"precioDesde" = "Pris fran";
+"precioHasta" = "Pris till";
+"descripcion" = "Beskrivning:";
+"caracteristicas" = "Beskrivning:";
+"reservar" = "Book";
+"pisos" = "Lägenheter";
+"casas" = "Hus";
+"locales" = "Affärslokaler";
+"tiendas" = "Affär";
+"tipo" = "Typ";
+"zona" = "Omraden";
+"contacto" = "Kontakta";
+"fechaNoValida" = "Det valda datumet är ogiltigt";
+"noSePudoConectar" = "Kunde inte ansluta till databasen. Vänligen försök igen senare";
+"valoresInvalidos" = "De valda värdena är inte giltiga. Var god försök igen";
+"estudio" = "Etta";
+"apartamento" = "Lägenhet";
+"piso" = "Vaning";
+"casa" = "Hus";
+"chalet" = "Hus";
+"duplex" = "Duplex";
+"villa" = "Villa";
+"local" = "Affärslokaler";
+"propiedad" = "Egendom";
+"en" = "i";
+"generales" = "Allmänt";
+"superficies" = "Ytor";
+"equipamientos" = "Utrustning";
+"calidades" = "Material";
+"codigoTuristico" = "Turisuthyrningslicens";
+"ascensor" = "Hiss";
+"salones" = "Vardagsrum";
+"banos" = "Badrum";
+"empotrados" = "Inbyggda garderober";
+"terrazas" = "Terrass";
+"lavadero" = "Tvättstuga";
+"construido" = "Konstruktionsarea";
+"util" = "Boarea";
+"piscina" = "Pool";
+"jardines" = "Trädgard";
+"cocinaIndependiente" = "Separat kök";
+"cocinaAmericana" = "Öppet kök";
+"cocinaAmueblada" = "Inrett kök";
+"electrodomesticos" = "Vitvaror";
+"instalacion" = "A/C Installerad";
+"climatizador" = "A/C Klimatanläggning";
+"preinstalacion" = "A/C Förberett";
+"central" = "Central luftkonditionering";
+"portero" = "Porttelefon";
+"videoportero" = "Porttelefon med kamera";
+"soleriaCeramica" = "Klinkers";
+"soleriaParquet" = "Parkettgolv";
+"tarima" = "Flytande golv";
+"soleriaMarmol" = "Marmorgolv";
+"zonaUrbana" = "Tätort";
+"urbanizacion" = "Urbanisering";
+"metrosPlaya" = "500 Meter till strand";
+"segundaLinea" = "2:a strandlinjen";
+"primeraLinea" = "1:a strandlinjen";
+"zonaCostera" = "Kustomrade";
+"orientacionEste" = "Öster";
+"orientacionOeste" = "Väster";
+"orientacionSur" = "Soder";
+"orientacionSuroeste" = "Sydväst";
+"orientacionSureste" = "Sydost";
+"orientacionNoroeoste" = "Nordväst";
+"escuelas" = "Skolor";
+"zonasDeportivas" = "Idrottsanläggning";
+"zonasVerdes" = "Grönomraden";
+"bus" = "Buss";
+"planta" = "ª Vaningar";
+"situacion" = "Läge";
+"cercaDe" = "Nära";
+"comunicaciones" = "Kommunikation";
+"consultar" = "Pa förfragan";

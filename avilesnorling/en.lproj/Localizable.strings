@@ -1,0 +1,94 @@
+/* 
+  Localizable.strings
+  avilesnorling
+
+  Created by Mac on 25/5/23.
+  
+*/
+
+"venta" = "Sale";
+"alquiler" = "Rental";
+"vacaciones" = "Holidays";
+"referencia" = "Reference";
+"oferta" = "Offer";
+"tipoInmueble" = "Property type";
+"dormitorios" = "Bedrooms";
+"superficie" = "Area from";
+"personas" = "Guests";
+"fecha" = "Date";
+"buscar" = "Search";
+"precioDesde" = "Price from";
+"precioHasta" = "Price to";
+"descripcion" = "Description:";
+"caracteristicas" = "Features:";
+"reservar" = "Book";
+"pisos" = "Flats";
+"casas" = "Houses";
+"locales" = "Business locals";
+"tiendas" = "Shops";
+"tipo" = "Type";
+"zona" = "Area";
+"contacto" = "Contact";
+"fechaNoValida" = "The selected date is not valid";
+"noSePudoConectar" = "Could not connect with database. Please try again later";
+"valoresInvalidos" = "The selected values are not valid. Please try again";
+"estudio" = "Studio flat";
+"apartamento" = "Apartment";
+"piso" = "Flat";
+"casa" = "House";
+"chalet" = "Chalet";
+"duplex" = "Duplex";
+"villa" = "Villa";
+"local" = "Business local";
+"propiedad" = "Property";
+"en" = "in";
+"generales" = "General";
+"superficies" = "Surfaces";
+"equipamientos" = "Equipment";
+"calidades" = "Qualities";
+"codigoTuristico" = "Tourist rental license";
+"ascensor" = "Lift";
+"salones" = "Living room";
+"banos" = "Bathroom";
+"empotrados" = "Built-in wardrobes";
+"terrazas" = "Terrace";
+"lavadero" = "Laundry";
+"construido" = "Built";
+"util" = "Useful";
+"piscina" = "Pool";
+"jardines" = "gardens";
+"cocinaIndependiente" = "Separate kitchen";
+"cocinaAmericana" = "Open kitchen";
+"cocinaAmueblada" = "Fitted kitchen";
+"electrodomesticos" = "Home appliances";
+"instalacion" = "A/C Installed";
+"climatizador" = "A/C Climate control";
+"preinstalacion" = "A/C Prepared";
+"central" = "Central air conditioner";
+"portero" = "Intercom";
+"videoportero" = "Video Intercom";
+"soleriaCeramica" = "Ceramic flooring";
+"soleriaParquet" = "Parquet flooring";
+"tarima" = "Pallet flooring";
+"soleriaMarmol" = "Marble flooring";
+"zonaUrbana" = "Urban area";
+"urbanizacion" = "Urbanization";
+"metrosPlaya" = "<500 to the beach";
+"segundaLinea" = "2nd Line to the beach";
+"primeraLinea" = "1st Line to the beach";
+"zonaCostera" = "In coastal area";
+"orientacionEste" = "East orientation";
+"orientacionOeste" = "West orientation";
+"orientacionSur" = "South orientation";
+"orientacionSuroeste" = "Southwest orientation";
+"orientacionSureste" = "Southeast orientation";
+"orientacionNoroeoste" = "Northwest orientation";
+"escuelas" = "Schools";
+"zonasDeportivas" = "Sports areas";
+"zonasVerdes" = "Greens spaces";
+"bus" = "Bus";
+"planta" = "ª floor";
+"situacion" = "Location";
+"cercaDe" = "Close to";
+"comunicaciones" = "Communications";
+"consultar" = "On request";

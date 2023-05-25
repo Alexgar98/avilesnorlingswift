@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, StringSelectionDelegate {
+class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var twitter: UIImageView!
     @IBOutlet weak var facebook: UIImageView!
@@ -18,9 +18,15 @@ class HomeViewController: UIViewController, StringSelectionDelegate {
     @IBOutlet weak var numeroMovil: UIButton!
     @IBOutlet weak var numeroTelefono: UIButton!
     @IBOutlet weak var mail: UIButton!
+    @IBOutlet weak var pickerIdiomas: UIPickerView!
+    @IBOutlet weak var btnVenta: UIButton!
+    @IBOutlet weak var btnAlquiler: UIButton!
+    @IBOutlet weak var btnVacaciones: UIButton!
+    @IBOutlet weak var contactoTxt: UILabel!
     weak var delegate : StringSelectionDelegate?
     var ubicacion : String = ""
     var tipoAnuncio : String = ""
+    var arrayIdiomas : [String] = [String]()
     
     override func viewWillAppear(_ animated: Bool) {
         //TODO SQLite
@@ -31,6 +37,8 @@ class HomeViewController: UIViewController, StringSelectionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
+        changeLanguage(lang: "es")
         let tapGestureRecognizerWhatsapp = UITapGestureRecognizer(target: self, action: #selector(imageTappedWhatsapp(tapGestureRecognizer:)))
         whatsapp.isUserInteractionEnabled = true
         whatsapp.addGestureRecognizer(tapGestureRecognizerWhatsapp)
@@ -258,6 +266,48 @@ class HomeViewController: UIViewController, StringSelectionDelegate {
             destino?.tipoAnuncioElegido = tipoAnuncio
         }
     }
+    func changeLanguage(lang: String) {
+        btnVenta.setTitle("venta".localizeString(string: lang), for: .normal)
+        btnAlquiler.setTitle("alquiler".localizeString(string: lang), for: .normal)
+        btnVacaciones.setTitle("vacaciones".localizeString(string: lang), for: .normal)
+        contactoTxt.text = "contacto".localizeString(string: lang)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return arrayIdiomas.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return arrayIdiomas[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch arrayIdiomas[row] {
+        case "Español":
+            changeLanguage(lang: "es")
+        case "English":
+            changeLanguage(lang: "en")
+        case "Français":
+            changeLanguage(lang: "fr")
+        case "Deutsch":
+            changeLanguage(lang: "de")
+        case "Svenska":
+            changeLanguage(lang: "sv")
+        default:
+            changeLanguage(lang: "es")
+        }
+    }
     
 }
 
+extension String {
+    func localizeString(string: String) -> String {
+        let path = Bundle.main.path(forResource: string, ofType: "lproj")
+        let bundle = Bundle(path: path!)
+        return NSLocalizedString(self, tableName: nil, bundle: bundle!, value: "", comment: "")
+    }
+}

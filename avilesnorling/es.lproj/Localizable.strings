@@ -1,0 +1,94 @@
+/* 
+  Localizable.strings
+  avilesnorling
+
+  Created by Mac on 25/5/23.
+  
+*/
+
+"venta" = "Venta";
+"alquiler" = "Alquiler";
+"vacaciones" = "Vacaciones";
+"referencia" = "Referencia";
+"oferta" = "Oferta";
+"tipoInmueble" = "Tipo inmueble";
+"dormitorios" = "Dormitorios";
+"superficie" = "Sup. Desde";
+"personas" = "Nº Personas";
+"fecha" = "Fecha";
+"buscar" = "Buscar";
+"precioDesde" = "Precio Desde";
+"precioHasta" = "Precio Hasta";
+"descripcion" = "Descripción:";
+"caracteristicas" = "Características:";
+"reservar" = "Reservar";
+"pisos" = "Pisos";
+"casas" = "Casas";
+"locales" = "Locales";
+"tiendas" = "Tiendas";
+"tipo" = "Tipo";
+"zona" = "Zona";
+"contacto" = "Contacto";
+"fechaNoValida" = "La fecha indicada no es válida";
+"noSePudoConectar" = "No se pudo conectar con la base de datos. Vuelve a intentarlo más tarde";
+"valoresInvalidos" = "Los valores introducidos no son válidos. Vuelve a intentarlo";
+"estudio" = "Estudio";
+"apartamento" = "Apartamento";
+"piso" = "Piso";
+"casa" = "Casa";
+"chalet" = "Chalet";
+"duplex" = "Dúplex";
+"villa" = "Villa";
+"local" = "Local";
+"propiedad" = "Propiedad";
+"en" = "en";
+"generales" = "Generales";
+"superficies" = "Superficies";
+"equipamientos" = "Equipamientos";
+"calidades" = "Calidades";
+"codigoTuristico" = "Código Turístico";
+"ascensor" = "Ascensor";
+"salones" = "salones";
+"banos" = "baños";
+"empotrados" = "armarios empotrados";
+"terrazas" = "terrazas";
+"lavadero" = "Lavadero";
+"construido" = "Constr.";
+"util" = "Útil";
+"piscina" = "Piscina";
+"jardines" = "Jardines";
+"cocinaIndependiente" = "Cocina independiente";
+"cocinaAmericana" = "Cocina americana";
+"cocinaAmueblada" = "Cocina amueblada";
+"electrodomesticos" = "Electrodomésticos";
+"instalacion" = "Aire Acondicionado / Instalación";
+"climatizador" = "A/C Climatizador";
+"preinstalacion" = "Aire Acondicionado / Preinstalación";
+"central" = "Aire acondicionado central";
+"portero" = "Portero automático";
+"videoportero" = "Video-portero";
+"soleriaCeramica" = "Solería de cerámica";
+"soleriaParquet" = "Solería de parquet";
+"tarima" = "Tarima";
+"soleriaMarmol" = "Solería de mármol";
+"zonaUrbana" = "Zona urbana";
+"urbanizacion" = "Urbanización";
+"metrosPlaya" = "A 500 metros de la playa";
+"segundaLinea" = "2ª Línea de playa";
+"primeraLinea" = "1ª Línea de playa";
+"zonaCostera" = "En zona costera";
+"orientacionEste" = "Orientación este";
+"orientacionOeste" = "Orientación oeste";
+"orientacionSur" = "Orientación sur";
+"orientacionSuroeste" = "Orientación suroeste";
+"orientacionSureste" = "Orientación sureste";
+"orientacionNoroeoste" = "Orientación noroeste";
+"escuelas" = "Escuelas";
+"zonasDeportivas" = "Zonas deportivas";
+"zonasVerdes" = "Zonas verdes";
+"bus" = "Bus";
+"planta" = "ª planta";
+"situacion" = "Situación";
+"cercaDe" = "Cerca de";
+"comunicaciones" = "Comunicaciones";
+"consultar" = "A consultar";

@@ -1,0 +1,144 @@
+
+/* Class = "UILabel"; text = "(Precio)"; ObjectID = "2eQ-sa-t6T"; */
+"2eQ-sa-t6T.text" = "(Precio)";
+
+/* Class = "UILabel"; text = "Cerca de"; ObjectID = "44r-xf-WsD"; */
+"44r-xf-WsD.text" = "Cerca de";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "4ZM-Iq-80p"; */
+"4ZM-Iq-80p.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UIButton"; configuration.title = "info@avilesnorling.com"; ObjectID = "5wh-7W-pZZ"; */
+"5wh-7W-pZZ.configuration.title" = "info@avilesnorling.com";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "5wh-7W-pZZ"; */
+"5wh-7W-pZZ.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Título"; ObjectID = "7df-l3-Kdj"; */
+"7df-l3-Kdj.text" = "Título";
+
+/* Class = "UILabel"; text = "Contacto"; ObjectID = "8DQ-JH-xu2"; */
+"8DQ-JH-xu2.text" = "Contacto";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "9MD-vl-oun"; */
+"9MD-vl-oun.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UIButton"; configuration.title = "Venta"; ObjectID = "A7g-Ss-DxN"; */
+"A7g-Ss-DxN.configuration.title" = "Venta";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "A7g-Ss-DxN"; */
+"A7g-Ss-DxN.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "AE8-cQ-xey"; */
+"AE8-cQ-xey.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "CbG-IW-J7H"; */
+"CbG-IW-J7H.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UILabel"; text = "Situación"; ObjectID = "Cvy-az-yEX"; */
+"Cvy-az-yEX.text" = "Situación";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "F9n-db-3Xo"; */
+"F9n-db-3Xo.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UILabel"; text = "Descripción"; ObjectID = "Gy1-FQ-pQA"; */
+"Gy1-FQ-pQA.text" = "Descripción";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "LZr-QQ-X75"; */
+"LZr-QQ-X75.text" = "(0)";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "NWe-RY-sLk"; */
+"NWe-RY-sLk.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UILabel"; text = "Calidades"; ObjectID = "OVN-xn-vXO"; */
+"OVN-xn-vXO.text" = "Calidades";
+
+/* Class = "UILabel"; text = "Superficies"; ObjectID = "Sj9-Bm-ftU"; */
+"Sj9-Bm-ftU.text" = "Superficies";
+
+/* Class = "UILabel"; text = "Generales"; ObjectID = "Ytc-dE-gko"; */
+"Ytc-dE-gko.text" = "Generales";
+
+/* Class = "UILabel"; text = "Ref: (Referencia)"; ObjectID = "ZgL-5y-YBj"; */
+"ZgL-5y-YBj.text" = "Ref: (Referencia)";
+
+/* Class = "UILabel"; text = "Contacto"; ObjectID = "aaD-t5-LVm"; */
+"aaD-t5-LVm.text" = "Contacto";
+
+/* Class = "UILabel"; text = "Precio"; ObjectID = "c8d-TM-ZXW"; */
+"c8d-TM-ZXW.text" = "Precio";
+
+/* Class = "UILabel"; text = "Equipamientos"; ObjectID = "ctc-fa-fDF"; */
+"ctc-fa-fDF.text" = "Equipamientos";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "eB8-XM-WXY"; */
+"eB8-XM-WXY.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UIButton"; configuration.title = "Vacaciones"; ObjectID = "eZo-Ao-bL3"; */
+"eZo-Ao-bL3.configuration.title" = "Vacaciones";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "eZo-Ao-bL3"; */
+"eZo-Ao-bL3.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Ref:"; ObjectID = "ebq-qT-Nu6"; */
+"ebq-qT-Nu6.text" = "Ref:";
+
+/* Class = "UIButton"; configuration.title = "Alquiler"; ObjectID = "g48-o3-jU4"; */
+"g48-o3-jU4.configuration.title" = "Alquiler";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "g48-o3-jU4"; */
+"g48-o3-jU4.normalTitle" = "Button";
+
+/* Class = "UIButton"; configuration.title = "+34 952965981"; ObjectID = "h5f-Xk-Du7"; */
+"h5f-Xk-Du7.configuration.title" = "+34 952965981";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "h5f-Xk-Du7"; */
+"h5f-Xk-Du7.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Calle Saladero Viejo, 1    29740 Torre del Mar (Málaga)"; ObjectID = "jut-9B-Gem"; */
+"jut-9B-Gem.text" = "Calle Saladero Viejo, 1    29740 Torre del Mar (Málaga)";
+
+/* Class = "UIButton"; configuration.title = "+34 643672547"; ObjectID = "lp5-X2-4Zs"; */
+"lp5-X2-4Zs.configuration.title" = "+34 643672547";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "lp5-X2-4Zs"; */
+"lp5-X2-4Zs.normalTitle" = "Button";
+
+/* Class = "UIButton"; configuration.title = "Buscar"; ObjectID = "pJK-Mj-ZRr"; */
+"pJK-Mj-ZRr.configuration.title" = "Buscar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "pJK-Mj-ZRr"; */
+"pJK-Mj-ZRr.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Comunicaciones"; ObjectID = "pRn-tI-uLt"; */
+"pRn-tI-uLt.text" = "Comunicaciones";
+
+/* Class = "UIButton"; configuration.title = "Reservar"; ObjectID = "rCx-Xu-MFP"; */
+"rCx-Xu-MFP.configuration.title" = "Reservar";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "rCx-Xu-MFP"; */
+"rCx-Xu-MFP.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "sd6-P6-5RX"; */
+"sd6-P6-5RX.text" = "(0)";
+
+/* Class = "UILabel"; text = "Características"; ObjectID = "uS9-Cb-JSA"; */
+"uS9-Cb-JSA.text" = "Características";
+
+/* Class = "UILabel"; text = "Categoría"; ObjectID = "ugs-qW-ExU"; */
+"ugs-qW-ExU.text" = "Categoría";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "v6V-SC-XWR"; */
+"v6V-SC-XWR.text" = "(0)";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "wMn-pR-LVS"; */
+"wMn-pR-LVS.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UILabel"; text = "(0)"; ObjectID = "wrr-Me-oFU"; */
+"wrr-Me-oFU.text" = "(0)";
+
+/* Class = "UILabel"; text = "Lorem ipsum dolor sit amet"; ObjectID = "xFq-eR-jUx"; */
+"xFq-eR-jUx.text" = "Lorem ipsum dolor sit amet";
+
+/* Class = "UILabel"; text = "Copyright © 2023 Avilés & Norling"; ObjectID = "y4L-oB-4sU"; */
+"y4L-oB-4sU.text" = "Copyright © 2023 Avilés & Norling";
