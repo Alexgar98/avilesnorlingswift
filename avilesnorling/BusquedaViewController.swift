@@ -23,6 +23,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     @IBOutlet weak var pickerIdiomas: UIPickerView!
     @IBOutlet weak var tableViewAnuncios: UITableView!
+    @IBOutlet weak var btnBuscar: UIButton!
     weak var delegate : StringSelectionDelegate?
     var ubicacionElegida : String?
     var tipoAnuncioElegido : String?
@@ -37,6 +38,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     var arrayPropiedades = [Propiedad]()
     var consulta : [String : String] = [:]
+    var currentLanguage = ""
     
     //let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
     //var parser : CXMLParser!
@@ -47,6 +49,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
         changeLanguage(lang: "es")
+        currentLanguage = "es"
         // Do any additional setup after loading the view.
         self.referencia.delegate = self
         self.superficie.delegate = self
@@ -80,14 +83,13 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         self.tableViewAnuncios.dataSource = self
         self.tableViewAnuncios.delegate = self
         
+        self.pickerIdiomas.delegate = self
+        self.pickerIdiomas.dataSource = self
+        
         tiposAnuncio = ["Oferta", "Venta", "Alquiler", "Vacaciones"]
         ubicaciones = ["Torre del Mar", "Vélez-Málaga", "Algarrobo", "Almáchar", "Almayate", "Benajarafe", "Benamargosa", "Caleta de Vélez", "Canillas de Aceituno", "Torrox", "Málaga", "Málaga oriental"]
         numerosDormitorios = ["Dormitorios", "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+", "10+"]
         tiposInmueble = ["Tipo inmueble", "Pisos", "Casas", "Locales"]
-        
-        //print("Ahora va a parsear")
-
-        //parsing()
         
         tableViewAnuncios.reloadData()
         print(arrayPropiedades.count)
@@ -122,7 +124,6 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             consulta["tipoAnuncio"] = nil
         }
         if dormitoriosElegidos != "Dormitorios" {
-            //consulta["dormitorios"] = dormitoriosElegidos?.drop(while: { $0 == "+" }) as? String
             if let dormitoriosElegidos = dormitoriosElegidos, dormitoriosElegidos.hasSuffix("+") {
                 consulta["dormitorios"] = String(dormitoriosElegidos.dropLast())
             }
@@ -146,25 +147,25 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         else {
             consulta["tipoInmueble"] = nil
         }
-        if !referenciaElegida!.isEmpty {
+        if !referenciaElegida!.isEmpty && referenciaElegida != "referencia".localizeString(string: currentLanguage) {
             consulta["referencia"] = referenciaElegida
         }
         else {
             consulta["referencia"] = nil
         }
-        if !superficieElegida!.isEmpty {
+        if !superficieElegida!.isEmpty && superficieElegida != "superficie".localizeString(string: currentLanguage) {
             consulta["superficie"] = superficieElegida
         }
         else {
             consulta["superficie"] = nil
         }
-        if !precioDesdeElegido!.isEmpty {
+        if !precioDesdeElegido!.isEmpty && precioDesdeElegido != "precioDesde".localizeString(string: currentLanguage) {
             consulta["precioDesde"] = precioDesdeElegido
         }
         else {
             consulta["precioDesde"] = nil
         }
-        if !precioHastaElegido!.isEmpty {
+        if !precioHastaElegido!.isEmpty && precioHastaElegido != "precioHasta".localizeString(string: currentLanguage) {
             consulta["precioHasta"] = precioHastaElegido
         }
         else {
@@ -248,6 +249,28 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             tipoInmuebleElegido = tiposInmueble[row]
             delegate?.didSelectString(tipoInmuebleElegido!)
             pickerView.selectRow(row, inComponent: component, animated: true)
+        }
+        else if pickerView == pickerIdiomas {
+            switch arrayIdiomas[row] {
+            case "Español":
+                changeLanguage(lang: "es")
+                currentLanguage = "es"
+            case "English":
+                changeLanguage(lang: "en")
+                currentLanguage = "en"
+            case "Français":
+                changeLanguage(lang: "fr")
+                currentLanguage = "fr"
+            case "Deutsch":
+                changeLanguage(lang: "de")
+                currentLanguage = "de"
+            case "Svenska":
+                changeLanguage(lang: "sv")
+                currentLanguage = "sv"
+            default:
+                changeLanguage(lang: "es")
+                currentLanguage = "es"
+            }
         }
         
         //TODO guardar datos
@@ -352,21 +375,34 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         if textView.text.isEmpty {
             switch textView {
             case referencia:
-                textView.text = "Referencia"
+            textView.text = "referencia".localizeString(string: currentLanguage)
             case superficie:
-                textView.text = "Sup. Desde"
+            textView.text = "superficie".localizeString(string: currentLanguage)
             case precioDesde:
-                textView.text = "Precio Desde"
+            textView.text = "precioDesde".localizeString(string: currentLanguage)
             case precioHasta:
-                textView.text = "Precio Hasta"
-            default:
-                textView.text = ""
+            textView.text = "precioHasta".localizeString(string: currentLanguage)
+                    default:
+                        textView.text = ""
             }
             textView.textColor = UIColor.lightGray
         }
     }
     
     func changeLanguage(lang: String) {
+        btnBuscar.setTitle("buscar".localizeString(string: lang), for: .normal)
+        
+            referencia.text = "referencia".localizeString(string: lang)
+            referencia.textColor = UIColor.lightGray
+        
+            superficie.text = "superficie".localizeString(string: lang)
+            superficie.textColor = UIColor.lightGray
+        
+            precioDesde.text = "precioDesde".localizeString(string: lang)
+            precioDesde.textColor = UIColor.lightGray
+        
+            precioHasta.text = "precioHasta".localizeString(string: lang)
+            precioHasta.textColor = UIColor.lightGray
         
     }
     

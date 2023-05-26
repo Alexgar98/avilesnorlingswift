@@ -9,10 +9,13 @@ import UIKit
 import CheatyXML
 import SDWebImage
 
-class AnuncioViewController: UIViewController {
+class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    
     var datosRecibidos : Propiedad?
     @IBOutlet weak var referencia: UILabel!
     
+    @IBOutlet weak var reservarBtn: UIButton!
     @IBOutlet weak var scrollImagenes: UIScrollView!
     @IBOutlet weak var stackImagenes: UIStackView!
     @IBOutlet weak var scroll: UIScrollView!
@@ -28,18 +31,24 @@ class AnuncioViewController: UIViewController {
     @IBOutlet weak var superficiesTitulo: UILabel!
     @IBOutlet weak var equipamientosTitulo: UILabel!
     @IBOutlet weak var calidadesTitulo: UILabel!
+    
     var caracteristicasGenerales = ""
     var txtSuperficies = ""
     var txtEquipamientos = ""
     var txtCalidades = ""
     
+    var arrayIdiomas : [String] = [String]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
+        changeLanguage(lang: "es")
+        
         var arrayUrlImagenes : [String] = []
-        stackImagenes.distribution = .fillEqually
-        scrollImagenes.contentSize = CGSize(width: 1000, height: scrollImagenes.frame.height)
+        
         if let datos = datosRecibidos {
             referencia.text = "Ref.: \(datos.referencia)"
             if (datos.precio == 0) {
@@ -85,10 +94,16 @@ class AnuncioViewController: UIViewController {
                     for imagen in 0..<parser["listaPropiedades"]["propiedad"][element]["listaImagenes"].numberOfChildElements {
                         arrayUrlImagenes.append(parser["listaPropiedades"]["propiedad"][element]["listaImagenes"]["imagen"][imagen]["url"].stringValue)
                     }
+                    /*for subview in stackImagenes.arrangedSubviews {
+                        stackImagenes.removeArrangedSubview(subview)
+                        subview.removeFromSuperview()
+                    }*/
+                    
                     for imagen in arrayUrlImagenes {
                         let anadir : UIImageView = UIImageView()
                         anadir.sd_setImage(with: URL(string: imagen))
                         anadir.contentMode = .scaleAspectFit
+                        anadir.clipsToBounds = true
                         stackImagenes.addArrangedSubview(anadir)
                     }
                     let codigoTurismo = parser["listaPropiedades"]["propiedad"][element]["registroTurismo"].string
@@ -239,12 +254,54 @@ class AnuncioViewController: UIViewController {
                 calidadesTitulo.isHidden = true
             }
         }
+        /*stackImagenes.distribution = .fillEqually
         let anchoTotal = CGFloat(arrayUrlImagenes.count) * view.frame.width
-        stackImagenes.frame = CGRect(x: 0, y: 100, width: anchoTotal, height: stackImagenes.frame.height)
-        scrollImagenes.contentSize = stackImagenes.frame.size
+        stackImagenes.frame = CGRect(x: 0, y: 100, width: anchoTotal, height: scrollImagenes.frame.height)
         
         scrollImagenes.isScrollEnabled = true
-        scroll.layoutIfNeeded()
+        scroll.layoutIfNeeded()*/
+        //let spacing : CGFloat = 10.0
+        let anchoImagenes = view.frame.width
+        let anchoTotal = CGFloat(arrayUrlImagenes.count) * view.frame.width
+        stackImagenes.distribution = .fillEqually
+        stackImagenes.frame = CGRect(x: 0, y: 0, width: anchoTotal, height: scrollImagenes.frame.height)
+        //stackImagenes.removeAllArrangedSubviews()
+        scrollImagenes.contentSize = CGSize(width: anchoTotal, height: scrollImagenes.frame.height)
+        scrollImagenes.isScrollEnabled = true
+        scrollImagenes.layoutIfNeeded()
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return arrayIdiomas.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return arrayIdiomas[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        switch arrayIdiomas[row] {
+        case "Español":
+            changeLanguage(lang: "es")
+        case "English":
+            changeLanguage(lang: "en")
+        case "Français":
+            changeLanguage(lang: "fr")
+        case "Deutsch":
+            changeLanguage(lang: "de")
+        case "Svenska":
+            changeLanguage(lang: "sv")
+        default:
+            changeLanguage(lang: "es")
+        }
+    }
+    
+    func changeLanguage(lang: String) {
+        reservarBtn.setTitle("reservar".localizeString(string: lang), for: .normal)
     }
     
 

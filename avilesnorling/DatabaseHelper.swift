@@ -159,12 +159,12 @@ class DatabaseHelper {
                 }
                 if consulta.keys.contains("superficie") {
                     if let superficieValue = consulta["superficie"] {
-                        query = query.filter(superficie >= Int(superficieValue) ?? 0)
+                        query = query.filter(superficie >= Int(superficieValue)!)
                     }
                 }
                 if consulta.keys.contains("precioDesde") {
                     if let precioValue = consulta["precioDesde"] {
-                        query = query.filter(precio >= Int(precioValue) ?? 0)
+                        query = query.filter(precio >= Int(precioValue)!)
                     }
                 }
                 if consulta.keys.contains("precioHasta") {
