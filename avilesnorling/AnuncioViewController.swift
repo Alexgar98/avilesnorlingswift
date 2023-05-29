@@ -31,11 +31,22 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var superficiesTitulo: UILabel!
     @IBOutlet weak var equipamientosTitulo: UILabel!
     @IBOutlet weak var calidadesTitulo: UILabel!
-    
+    @IBOutlet weak var situacionTitulo: UILabel!
+    @IBOutlet weak var situacion: UILabel!
+    @IBOutlet weak var cercaDeTitulo: UILabel!
+    @IBOutlet weak var cercaDe: UILabel!
+    @IBOutlet weak var comunicacionesTitulo: UILabel!
+    @IBOutlet weak var comunicaciones: UILabel!
+    @IBOutlet weak var contactoTitulo: UILabel!
+    @IBOutlet weak var contacto: UILabel!
     var caracteristicasGenerales = ""
     var txtSuperficies = ""
     var txtEquipamientos = ""
     var txtCalidades = ""
+    var txtSituacion = ""
+    var txtCercaDe = ""
+    var txtComunicaciones = ""
+    var txtContacto = ""
     
     var arrayIdiomas : [String] = [String]()
     
@@ -221,6 +232,73 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                             txtCalidades.append("\n- Solería de mármol")
                         }
                     }
+                    let zona = parser["listaPropiedades"]["propiedad"][element]["tipoZona"].string
+                    if zona != nil {
+                        if zona == "1" {
+                            txtSituacion.append("\n- Zona urbana")
+                        }
+                        else {
+                            txtSituacion.append("\n- Urbanización")
+                        }
+                    }
+                    let playa = parser["listaPropiedades"]["propiedad"][element]["tipoPlaya"].string
+                    if playa != nil {
+                        switch playa {
+                        case "2":
+                            txtSituacion.append("\n- A 500 metros de la playa")
+                        case "4":
+                            txtSituacion.append("\n- 2ª Línea de playa")
+                        case "3":
+                            txtSituacion.append("\n- En zona costera")
+                        default:
+                            txtSituacion.append("\n- 1ª Línea de playa")
+                        }
+                    let orientacion = parser["listaPropiedades"]["propiedad"][element]["tipoOrientacion"].string
+                        if (orientacion != nil) {
+                            switch orientacion {
+                            case "3":
+                                txtSituacion.append("\n- Orientación este")
+                            case "4":
+                                txtSituacion.append("\n- Orientación oeste")
+                            case "2":
+                                txtSituacion.append("\n- Orientación sur")
+                            case "8":
+                                txtSituacion.append("\n- Orientación suroeste")
+                            case "7":
+                                txtSituacion.append("\n- Orientación sureste")
+                            default:
+                                txtSituacion.append("\n- Orientación noroeste")
+                            }
+                        }
+                    }
+                    let escuelas = parser["listaPropiedades"]["propiedad"][element]["centrosEscolares"].string
+                    if (escuelas != nil) {
+                        txtCercaDe.append("\n- Escuelas")
+                    }
+                    let deporte = parser["listaPropiedades"]["propiedad"][element]["instalacionesDeportivas"].string
+                    if (deporte != nil) {
+                        txtCercaDe.append("\n- Zonas deportivas")
+                    }
+                    let verde = parser["listaPropiedades"]["propiedad"][element]["espaciosVerdes"].string
+                    if verde != nil {
+                        txtCercaDe.append("\n- Zonas verdes")
+                    }
+                    let bus = parser["listaPropiedades"]["propiedad"][element]["autobuses"].string
+                    if bus != nil {
+                        txtComunicaciones.append("\n- Bus")
+                    }
+                    let nombreContacto = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["nombreContacto"].string
+                    if nombreContacto != nil {
+                        txtContacto.append("\n\(nombreContacto!)")
+                    }
+                    let emailContacto = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["emailContacto"].string
+                    if emailContacto != nil {
+                        txtContacto.append("\n\(emailContacto!)")
+                    }
+                    let telefonoContacto = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["telefonoContacto"].string
+                    if telefonoContacto != nil {
+                        txtContacto.append("\n\(telefonoContacto!)")
+                    }
                     break
                 }
             }
@@ -252,6 +330,34 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             else {
                 calidades.isHidden = true
                 calidadesTitulo.isHidden = true
+            }
+            if (txtSituacion != "") {
+                situacion.text = txtSituacion
+            }
+            else {
+                situacion.isHidden = true
+                situacionTitulo.isHidden = true
+            }
+            if (txtCercaDe != "") {
+                cercaDe.text = txtCercaDe
+            }
+            else {
+                cercaDe.isHidden = true
+                cercaDeTitulo.isHidden = true
+            }
+            if (txtComunicaciones != "") {
+                comunicaciones.text = txtComunicaciones
+            }
+            else {
+                comunicaciones.isHidden = true
+                comunicacionesTitulo.isHidden = true
+            }
+            if (txtContacto != "") {
+                contacto.text = txtContacto
+            }
+            else {
+                contacto.isHidden = true
+                contactoTitulo.isHidden = true
             }
         }
         /*stackImagenes.distribution = .fillEqually
@@ -304,7 +410,39 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         reservarBtn.setTitle("reservar".localizeString(string: lang), for: .normal)
     }
     
+    @IBAction func btnReserva(_ sender: Any) {
+        jsonParser()
+    }
+    
+    func jsonParser()
+    {
+        if let url = URL(string: "https://raw.githubusercontent.com/Alexgar98/AvilesNorling/main/app/src/main/assets/propiedades.json?token=GHSAT0AAAAAACCSMJOUJTKCSJM5AVGNN3USZDU25EA") {
+            var request = URLRequest(url: url)
+            request.setValue("Bearer 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", forHTTPHeaderField: "Authorization")
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    print("Error fetching JSON: \(error)")
+                    return
+                }
 
+                guard let data = data else {
+                    print("No data received.")
+                    return
+                }
+
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print(jsonString)
+                } else {
+                    print("Failed to convert data to string.")
+                }
+            }
+
+            task.resume()
+        } else {
+            print("Invalid URL")
+        }
+        
+    }
     /*
     // MARK: - Navigation
 
