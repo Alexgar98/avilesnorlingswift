@@ -128,7 +128,7 @@ class DatabaseHelper {
             if (!consulta.isEmpty) {
                 if consulta.keys.contains("referencia") {
                     if let referenciaValue = consulta["referencia"] {
-                        query = query.filter(referencia == referenciaValue)
+                        query = query.filter(referencia.like("%\(referenciaValue)%"))
                     }
                 }
                 if consulta.keys.contains("tipoAnuncio") {

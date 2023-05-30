@@ -836,7 +836,7 @@
                                         <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacto" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaD-t5-LVm">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contacto" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aaD-t5-LVm">
                                         <rect key="frame" x="0.0" y="560.5" width="358" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="358" id="frX-N0-aWt"/>
@@ -845,7 +845,7 @@
                                         <color key="textColor" red="0.91710680720000004" green="0.93726044890000004" blue="0.94156378510000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eB8-XM-WXY">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eB8-XM-WXY">
                                         <rect key="frame" x="0.0" y="575" width="358" height="20.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="358" id="u4a-Lq-qu4"/>
@@ -1004,6 +1004,7 @@
                     <connections>
                         <outlet property="calidades" destination="9MD-vl-oun" id="Auh-B7-l0z"/>
                         <outlet property="calidadesTitulo" destination="OVN-xn-vXO" id="eXH-cg-6Co"/>
+                        <outlet property="caracteristicasTitulo" destination="uS9-Cb-JSA" id="1Nl-T3-JLT"/>
                         <outlet property="categoria" destination="ugs-qW-ExU" id="4fq-X7-OyM"/>
                         <outlet property="cercaDe" destination="NWe-RY-sLk" id="cCx-b7-4s0"/>
                         <outlet property="cercaDeTitulo" destination="44r-xf-WsD" id="Idz-M8-mQh"/>
@@ -1012,6 +1013,7 @@
                         <outlet property="contacto" destination="eB8-XM-WXY" id="DJP-zW-kZq"/>
                         <outlet property="contactoTitulo" destination="aaD-t5-LVm" id="XKa-7O-iTq"/>
                         <outlet property="descripcion" destination="4ZM-Iq-80p" id="rZ0-8F-4Uh"/>
+                        <outlet property="descripcionTitulo" destination="Gy1-FQ-pQA" id="vl0-g3-YH4"/>
                         <outlet property="equipamientos" destination="AE8-cQ-xey" id="iCL-aE-Llx"/>
                         <outlet property="equipamientosTitulo" destination="ctc-fa-fDF" id="oyE-nf-Wtp"/>
                         <outlet property="generales" destination="xFq-eR-jUx" id="aBc-En-Sk8"/>

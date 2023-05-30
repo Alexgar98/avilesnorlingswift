@@ -106,14 +106,14 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         else {
             consulta["ubicacion"] = nil
         }
-        if tipoAnuncioElegido != "Oferta" {
+        if tipoAnuncioElegido != "oferta".localizeString(string: currentLanguage) {
             switch tipoAnuncioElegido {
-            case "Venta":
+            case "venta".localizeString(string: currentLanguage):
                 consulta["tipoAnuncio"] = "1"
-            case "Alquiler":
+            case "alquiler".localizeString(string: currentLanguage):
                 consulta["tipoAnuncio"] = "2"
                 consulta["vacacional"] = "false"
-            case "Vacaciones":
+            case "vacaciones".localizeString(string: currentLanguage):
                 consulta["tipoAnuncio"] = "2"
                 consulta["vacacional"] = "true"
             default:
@@ -123,7 +123,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         else {
             consulta["tipoAnuncio"] = nil
         }
-        if dormitoriosElegidos != "Dormitorios" {
+        if dormitoriosElegidos != "dormitorios".localizeString(string: currentLanguage) {
             if let dormitoriosElegidos = dormitoriosElegidos, dormitoriosElegidos.hasSuffix("+") {
                 consulta["dormitorios"] = String(dormitoriosElegidos.dropLast())
             }
@@ -132,13 +132,13 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             consulta["dormitorios"] = nil
         }
         
-        if tipoInmuebleElegido != "Tipo inmueble" {
+        if tipoInmuebleElegido != "tipoInmueble".localizeString(string: currentLanguage) {
             switch tipoInmuebleElegido {
-            case "Pisos":
+            case "pisos".localizeString(string: currentLanguage):
                 consulta["tipoInmueble"] = "2"
-            case "Casas":
+            case "casas".localizeString(string: currentLanguage):
                 consulta["tipoInmueble"] = "16"
-            case "Locales":
+            case "locales".localizeString(string: currentLanguage):
                 consulta["tipoInmueble"] = "512"
             default:
                 break
@@ -403,6 +403,13 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
             precioHasta.text = "precioHasta".localizeString(string: lang)
             precioHasta.textColor = UIColor.lightGray
+        
+        tiposAnuncio = ["oferta".localizeString(string: lang), "venta".localizeString(string: lang), "alquiler".localizeString(string: lang), "vacaciones".localizeString(string: lang)]
+        numerosDormitorios = ["dormitorios".localizeString(string: lang), "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+", "10+"]
+        tiposInmueble = ["tipoInmueble".localizeString(string: lang), "pisos".localizeString(string: lang), "casas".localizeString(string: lang), "locales".localizeString(string: lang)]
+        dormitorios.reloadAllComponents()
+        tipoAnuncio.reloadAllComponents()
+        tipoInmueble.reloadAllComponents()
         
     }
     

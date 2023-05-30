@@ -39,6 +39,8 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var comunicaciones: UILabel!
     @IBOutlet weak var contactoTitulo: UILabel!
     @IBOutlet weak var contacto: UILabel!
+    @IBOutlet weak var descripcionTitulo: UILabel!
+    @IBOutlet weak var caracteristicasTitulo: UILabel!
     var caracteristicasGenerales = ""
     var txtSuperficies = ""
     var txtEquipamientos = ""
@@ -47,9 +49,12 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var txtCercaDe = ""
     var txtComunicaciones = ""
     var txtContacto = ""
+    var url = URL(string: "")
     
     var arrayIdiomas : [String] = [String]()
     
+    var currentLanguage = ""
+    var elementoElegido = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,10 +65,22 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         var arrayUrlImagenes : [String] = []
         
+        if let localData = self.leerJson(forName: "propiedades") {
+            if let urlParseada = self.parse(jsonData: localData, referencia: datosRecibidos?.referencia ?? "") {
+                url = urlParseada
+            }
+            else {
+                reservarBtn.isHidden = true
+            }
+        }
+        else {
+            reservarBtn.isHidden = true
+        }
+        
         if let datos = datosRecibidos {
             referencia.text = "Ref.: \(datos.referencia)"
             if (datos.precio == 0) {
-                precio.text = "A consultar"
+                precio.text = "consultar".localizeString(string: currentLanguage)
             }
             else {
                 precio.text = "\(datos.precio!) €"
@@ -80,36 +97,31 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     let tipoInmueble : String
                     switch codigoTipoInmueble {
                     case "1":
-                        tipoInmueble = "Estudio"
+                        tipoInmueble = "estudio".localizeString(string: currentLanguage)
                     case "2":
-                        tipoInmueble = "Apartamento"
+                        tipoInmueble = "apartamento".localizeString(string: currentLanguage)
                     case "4":
-                        tipoInmueble = "Piso"
+                        tipoInmueble = "piso".localizeString(string: currentLanguage)
                     case "8":
-                        tipoInmueble = "Dúplex"
+                        tipoInmueble = "duplex".localizeString(string: currentLanguage)
                     case "16":
-                        tipoInmueble = "Casa"
+                        tipoInmueble = "casa".localizeString(string: currentLanguage)
                     case "64":
-                        tipoInmueble = "Chalet"
+                        tipoInmueble = "chalet".localizeString(string: currentLanguage)
                     case "128":
-                        tipoInmueble = "Villa"
+                        tipoInmueble = "villa".localizeString(string: currentLanguage)
                     case "512":
-                        tipoInmueble = "Local"
+                        tipoInmueble = "local".localizeString(string: currentLanguage)
                     default:
-                        tipoInmueble = "Propiedad"
+                        tipoInmueble = "propiedad".localizeString(string: currentLanguage)
                     }
                     let localidad = parser["listaPropiedades"]["propiedad"][element]["localidad"].stringValue
-                    categoria.text = "\(tipoInmueble) en \(localidad)"
+                    categoria.text = "\(tipoInmueble) \("en".localizeString(string: currentLanguage)) \(localidad)"
 
                     descripcion.text = parser["listaPropiedades"]["propiedad"][element]["descripcionPrincipal"]["descripcion"][0]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
                     for imagen in 0..<parser["listaPropiedades"]["propiedad"][element]["listaImagenes"].numberOfChildElements {
                         arrayUrlImagenes.append(parser["listaPropiedades"]["propiedad"][element]["listaImagenes"]["imagen"][imagen]["url"].stringValue)
                     }
-                    /*for subview in stackImagenes.arrangedSubviews {
-                        stackImagenes.removeArrangedSubview(subview)
-                        subview.removeFromSuperview()
-                    }*/
-                    
                     for imagen in arrayUrlImagenes {
                         let anadir : UIImageView = UIImageView()
                         anadir.sd_setImage(with: URL(string: imagen))
@@ -119,32 +131,32 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     }
                     let codigoTurismo = parser["listaPropiedades"]["propiedad"][element]["registroTurismo"].string
                     if (codigoTurismo != nil) {
-                        caracteristicasGenerales.append("- Código turístico: \(codigoTurismo!)\n")
+                        caracteristicasGenerales.append("- \("codigoTuristico".localizeString(string: currentLanguage)) \(codigoTurismo!)\n")
                     }
                     let plantas = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["nplantas"].string
                     if (plantas != nil) {
-                        caracteristicasGenerales.append("- \(plantas!)ª planta\n")
+                        caracteristicasGenerales.append("- \(plantas!)ª \("planta".localizeString(string: currentLanguage))\n")
                     }
                     let salones = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["salones"].string
                     if (salones != nil) {
-                        caracteristicasGenerales.append("- \(salones!) salones\n")
+                        caracteristicasGenerales.append("- \(salones!) \("salones".localizeString(string: currentLanguage))\n")
                     }
                     let dormitorios = parser["listaPropiedades"]["propiedad"][element]["dormitorios"].string
                     if (dormitorios != nil) {
-                        caracteristicasGenerales.append("- \(dormitorios!) dormitorios\n")
+                        caracteristicasGenerales.append("- \(dormitorios!) \("dormitorios".localizeString(string: currentLanguage))\n")
                     }
                     let banos = parser["listaPropiedades"]["propiedad"][element]["baños"].string
                     if (banos != nil) {
-                        caracteristicasGenerales.append("- \(banos!) baños\n")
+                        caracteristicasGenerales.append("- \(banos!) \("banos".localizeString(string: currentLanguage))\n")
                     }
                     let empotrados = parser["listaPropiedades"]["propiedad"][element]["armariosEmpotrados"].string
                     if (empotrados != nil) {
-                        caracteristicasGenerales.append("- \(empotrados!) armarios empotrados\n")
+                        caracteristicasGenerales.append("- \(empotrados!) \("empotrados".localizeString(string: currentLanguage))\n")
                     }
                     let terrazas = parser["listaPropiedades"]["propiedad"][element]["terrazas"].string
                     let superficieTerrazas = parser["listaPropiedades"]["propiedad"][element]["superficieTerrazas"].string
                     if (terrazas != nil) {
-                        caracteristicasGenerales.append("- \(terrazas!) terrazas")
+                        caracteristicasGenerales.append("- \(terrazas!) \("terrazas".localizeString(string: currentLanguage))")
                         if superficieTerrazas != nil {
                             caracteristicasGenerales.append(" (\(superficieTerrazas!) m2)\n")
                         }
@@ -154,67 +166,67 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     }
                     let lavadero = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["lavadero"].string
                     if (lavadero != nil) {
-                        caracteristicasGenerales.append("- Lavadero")
+                        caracteristicasGenerales.append("- \("lavadero".localizeString(string: currentLanguage))")
                     }
                     
                     let construido = parser["listaPropiedades"]["propiedad"][element]["superficieConstruida"].string
                     if (construido != nil) {
-                        txtSuperficies.append("- Const.: \(construido!) m2")
+                        txtSuperficies.append("- \("construido".localizeString(string: currentLanguage)) \(construido!) m2")
                     }
                     let util = parser["listaPropiedades"]["propiedad"][element]["superficieUtil"].string
                     if (util != nil) {
-                        txtSuperficies.append("\n- Útil: \(util!) m2")
+                        txtSuperficies.append("\n- \("util".localizeString(string: currentLanguage)) \(util!) m2")
                     }
                     
                     let piscina = parser["listaPropiedades"]["propiedad"][element]["piscina"].string
                     if (piscina != nil) {
-                        txtEquipamientos.append("\n- Piscina")
+                        txtEquipamientos.append("\n- \("piscina".localizeString(string: currentLanguage))")
                     }
                     let jardines = parser["listaPropiedades"]["propiedad"][element]["jardines"].string
                     if (jardines != nil) {
-                        txtEquipamientos.append("\n- Jardines")
+                        txtEquipamientos.append("\n- \("jardines".localizeString(string: currentLanguage))")
                     }
                     let cocinaAmueblada = parser["listaPropiedades"]["propiedad"][element]["cocinaAmueblada"].string
                     if (cocinaAmueblada != nil) {
-                        txtEquipamientos.append("\n- Cocina amueblada")
+                        txtEquipamientos.append("\n- \("cocinaAmueblada".localizeString(string: currentLanguage))")
                     }
                     let electrodomesticos = parser["listaPropiedades"]["propiedad"][element]["electrodomesticos"].string
                     if (electrodomesticos != nil) {
-                        txtEquipamientos.append("\n- Electrodomésticos")
+                        txtEquipamientos.append("\n- \("electrodomesticos".localizeString(string: currentLanguage))")
                     }
                     let portero = parser["listaPropiedades"]["propiedad"][element]["tipoPortero"].string
                     if (portero != nil) {
                         if (portero == "1") {
-                            txtEquipamientos.append("\n- Portero automático")
+                            txtEquipamientos.append("\n- \("portero".localizeString(string: currentLanguage))")
                         }
                         else {
-                            txtEquipamientos.append("\n- Video-portero")
+                            txtEquipamientos.append("\n- \("videoportero".localizeString(string: currentLanguage))")
                         }
                     }
                     let tipoCocina = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["tipoCocina"].string
                     if (tipoCocina != nil) {
                         switch tipoCocina {
                         case "1":
-                            txtEquipamientos.append("\n- Cocina independiente")
+                            txtEquipamientos.append("\n- \("cocinaIndependiente".localizeString(string: currentLanguage))")
                         case "2":
-                            txtEquipamientos.append("\n- Cocina americana")
+                            txtEquipamientos.append("\n- \("cocinaAmericana".localizeString(string: currentLanguage))")
                         default:
-                            txtEquipamientos.append("\n- COcina amueblada")
+                            txtEquipamientos.append("\n- \("cocinaAmueblada".localizeString(string: currentLanguage))")
                         }
                     }
                     let tipoAC = parser["listaPropiedades"]["propiedad"][element]["tipoAireAcondicionado"].string
                     if (tipoAC != nil) {
                         switch tipoAC {
                         case "2":
-                            txtEquipamientos.append("\n- Aire Acondicionado / Instalación")
+                            txtEquipamientos.append("\n- \("instalacion".localizeString(string: currentLanguage))")
                         case "3":
-                            txtEquipamientos.append("\n- A/C Climatizador")
+                            txtEquipamientos.append("\n- \("climatizador".localizeString(string: currentLanguage))")
                         default:
                             if (parser["listaPropiedades"]["propiedad"][element]["tipoConservacion"].string == "6") {
-                                txtEquipamientos.append("\n- Aire Acondicionado / Preinstalación")
+                                txtEquipamientos.append("\n- \("preinstalacion".localizeString(string: currentLanguage))")
                             }
                             else {
-                                txtEquipamientos.append("\n- Aire acondicionado central")
+                                txtEquipamientos.append("\n- \("central".localizeString(string: currentLanguage))")
                             }
                         }
                     }
@@ -223,69 +235,69 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     if (soleria != nil) {
                         switch soleria {
                         case "5":
-                            txtCalidades.append("\n- Solería de cerámica")
+                            txtCalidades.append("\n- \("soleriaCeramica".localizeString(string: currentLanguage))")
                         case "1":
-                            txtCalidades.append("\n- Solería de parquet")
+                            txtCalidades.append("\n- \("soleriaParquet".localizeString(string: currentLanguage))")
                         case "6":
-                            txtCalidades.append("\n- Tarima")
+                            txtCalidades.append("\n- \("tarima".localizeString(string: currentLanguage))")
                         default:
-                            txtCalidades.append("\n- Solería de mármol")
+                            txtCalidades.append("\n- \("soleriaMarmol".localizeString(string: currentLanguage))")
                         }
                     }
                     let zona = parser["listaPropiedades"]["propiedad"][element]["tipoZona"].string
                     if zona != nil {
                         if zona == "1" {
-                            txtSituacion.append("\n- Zona urbana")
+                            txtSituacion.append("\n- \("zonaUrbana".localizeString(string: currentLanguage))")
                         }
                         else {
-                            txtSituacion.append("\n- Urbanización")
+                            txtSituacion.append("\n- \("urbanizacion".localizeString(string: currentLanguage))")
                         }
                     }
                     let playa = parser["listaPropiedades"]["propiedad"][element]["tipoPlaya"].string
                     if playa != nil {
                         switch playa {
                         case "2":
-                            txtSituacion.append("\n- A 500 metros de la playa")
+                            txtSituacion.append("\n- \("metrosPlaya".localizeString(string: currentLanguage))")
                         case "4":
-                            txtSituacion.append("\n- 2ª Línea de playa")
+                            txtSituacion.append("\n- \("segundaLinea".localizeString(string: currentLanguage))")
                         case "3":
-                            txtSituacion.append("\n- En zona costera")
+                            txtSituacion.append("\n- \("zonaCostera".localizeString(string: currentLanguage))")
                         default:
-                            txtSituacion.append("\n- 1ª Línea de playa")
+                            txtSituacion.append("\n- \("primeraLinea".localizeString(string: currentLanguage))")
                         }
                     let orientacion = parser["listaPropiedades"]["propiedad"][element]["tipoOrientacion"].string
                         if (orientacion != nil) {
                             switch orientacion {
                             case "3":
-                                txtSituacion.append("\n- Orientación este")
+                                txtSituacion.append("\n- \("orientacionEste".localizeString(string: currentLanguage))")
                             case "4":
-                                txtSituacion.append("\n- Orientación oeste")
+                                txtSituacion.append("\n- \("orientacionOeste".localizeString(string: currentLanguage))")
                             case "2":
-                                txtSituacion.append("\n- Orientación sur")
+                                txtSituacion.append("\n- \("orientacionSur".localizeString(string: currentLanguage))")
                             case "8":
-                                txtSituacion.append("\n- Orientación suroeste")
+                                txtSituacion.append("\n- \("orientacionSuroeste".localizeString(string: currentLanguage))")
                             case "7":
-                                txtSituacion.append("\n- Orientación sureste")
+                                txtSituacion.append("\n- \("orientacionSureste".localizeString(string: currentLanguage))")
                             default:
-                                txtSituacion.append("\n- Orientación noroeste")
+                                txtSituacion.append("\n- \("orientacionNoroeste".localizeString(string: currentLanguage))")
                             }
                         }
                     }
                     let escuelas = parser["listaPropiedades"]["propiedad"][element]["centrosEscolares"].string
                     if (escuelas != nil) {
-                        txtCercaDe.append("\n- Escuelas")
+                        txtCercaDe.append("\n- \("escuelas".localizeString(string: currentLanguage))")
                     }
                     let deporte = parser["listaPropiedades"]["propiedad"][element]["instalacionesDeportivas"].string
                     if (deporte != nil) {
-                        txtCercaDe.append("\n- Zonas deportivas")
+                        txtCercaDe.append("\n- \("zonasDeportivas".localizeString(string: currentLanguage))")
                     }
                     let verde = parser["listaPropiedades"]["propiedad"][element]["espaciosVerdes"].string
                     if verde != nil {
-                        txtCercaDe.append("\n- Zonas verdes")
+                        txtCercaDe.append("\n- \("zonasVerdes".localizeString(string: currentLanguage))")
                     }
                     let bus = parser["listaPropiedades"]["propiedad"][element]["autobuses"].string
                     if bus != nil {
-                        txtComunicaciones.append("\n- Bus")
+                        txtComunicaciones.append("\n- \("bus".localizeString(string: currentLanguage))")
                     }
                     let nombreContacto = parser["listaPropiedades"]["propiedad"][element]["extensionInmoenter"]["nombreContacto"].string
                     if nombreContacto != nil {
@@ -299,6 +311,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     if telefonoContacto != nil {
                         txtContacto.append("\n\(telefonoContacto!)")
                     }
+                    elementoElegido = element
                     break
                 }
             }
@@ -407,42 +420,98 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func changeLanguage(lang: String) {
+        currentLanguage = lang
         reservarBtn.setTitle("reservar".localizeString(string: lang), for: .normal)
-    }
-    
-    @IBAction func btnReserva(_ sender: Any) {
-        jsonParser()
-    }
-    
-    func jsonParser()
-    {
-        if let url = URL(string: "https://raw.githubusercontent.com/Alexgar98/AvilesNorling/main/app/src/main/assets/propiedades.json?token=GHSAT0AAAAAACCSMJOUJTKCSJM5AVGNN3USZDU25EA") {
-            var request = URLRequest(url: url)
-            request.setValue("Bearer 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", forHTTPHeaderField: "Authorization")
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let error = error {
-                    print("Error fetching JSON: \(error)")
-                    return
-                }
-
-                guard let data = data else {
-                    print("No data received.")
-                    return
-                }
-
-                if let jsonString = String(data: data, encoding: .utf8) {
-                    print(jsonString)
-                } else {
-                    print("Failed to convert data to string.")
-                }
-            }
-
-            task.resume()
-        } else {
-            print("Invalid URL")
+        if !(precio.text?.hasSuffix("€"))! {
+            precio.text = "consultar".localizeString(string: lang)
+        }
+        descripcionTitulo.text = "descripcion".localizeString(string: lang)
+        caracteristicasTitulo.text = "caracteristicas".localizeString(string: lang)
+        generalesTitulo.text = "generales".localizeString(string: lang)
+        superficiesTitulo.text = "superficies".localizeString(string: lang)
+        equipamientosTitulo.text = "equipamientos".localizeString(string: lang)
+        calidadesTitulo.text = "calidades".localizeString(string: lang)
+        situacionTitulo.text = "situacion".localizeString(string: lang)
+        cercaDeTitulo.text = "cercaDe".localizeString(string: lang)
+        comunicacionesTitulo.text = "comunicaciones".localizeString(string: lang)
+        contactoTitulo.text = "contacto".localizeString(string: lang)
+        
+        generales.text = generales.text?.localizeString(string: lang)
+        
+        let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
+        let parser : CXMLParser! = CXMLParser(contentsOfURL: url!)
+        
+        switch lang {
+        case "es":
+            descripcion.text = parser["listaPropiedades"]["propiedad"][elementoElegido]["descripcionPrincipal"]["descripcion"][0]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
+        case "en":
+            descripcion.text = parser["listaPropiedades"]["propiedad"][elementoElegido]["descripcionPrincipal"]["descripcion"][1]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
+        case "fr":
+            descripcion.text = parser["listaPropiedades"]["propiedad"][elementoElegido]["descripcionPrincipal"]["descripcion"][2]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
+        case "de":
+            descripcion.text = parser["listaPropiedades"]["propiedad"][elementoElegido]["descripcionPrincipal"]["descripcion"][4]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
+        case "sv":
+            descripcion.text = parser["listaPropiedades"]["propiedad"][elementoElegido]["descripcionPrincipal"]["descripcion"][7]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
+        default:
+            descripcion.text = parser["listaPropiedades"]["propiedad"][elementoElegido]["descripcionPrincipal"]["descripcion"][0]["texto"].string?.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         
     }
+    
+    @IBAction func btnReserva(_ sender: Any) {
+        abrirUrl(direccion: url)
+    }
+    
+    struct PropiedadEnlaces : Codable {
+        let nombre : String
+        let cod_an : String
+        let id_avail : String
+        let id_opinan : String
+    }
+    
+    func leerJson (forName name : String) -> Data? {
+        do {
+            if let bundlePath = Bundle.main.path(forResource: name, ofType: "json"),
+               let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) {
+                return jsonData
+            }
+        }
+        catch {
+            print(error)
+        }
+        return nil
+    }
+    
+    func parse (jsonData : Data, referencia : String) -> URL? {
+        print(referencia)
+        do {
+            let decodedData = try JSONDecoder().decode([PropiedadEnlaces].self, from: jsonData)
+            for propiedad in decodedData {
+                if propiedad.cod_an == referencia {
+                    return URL(string: "https://www.avaibook.com/reservas/nueva_reserva.php?idw=\(propiedad.id_avail)&cod_propietario=89412&cod_alojamiento=\(propiedad.id_opinan)&lang=es")
+                }
+            }
+        }
+        catch {
+            print(error)
+        }
+        return nil
+    }
+    
+    func abrirUrl(direccion : URL?) {
+        if let url = direccion {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+            }
+            else {
+                print("No se pudo abrir la url \(url)")
+            }
+        }
+        else {
+            print("Formato inválido")
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
