@@ -212,6 +212,13 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="69i-Dd-jMA"/>
                                 </connections>
                             </pickerView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="da4-TR-YmT">
+                                <rect key="frame" x="143" y="413" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="8I8-aC-0iP"/>
+                                    <constraint firstAttribute="height" constant="128" id="rdZ-TI-Bve"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="labelColor"/>
@@ -222,6 +229,7 @@
                             <constraint firstItem="aM4-8D-MP7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="7sD-FC-x3t"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="A7g-Ss-DxN" secondAttribute="trailing" constant="20" id="9b8-oe-3Yx"/>
                             <constraint firstItem="FJM-M6-Zop" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="A2D-ve-8yd"/>
+                            <constraint firstItem="da4-TR-YmT" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="DmI-8b-AmN"/>
                             <constraint firstItem="o2u-3J-Iw1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76" id="FEe-c5-dxJ"/>
                             <constraint firstItem="FJM-M6-Zop" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Fcg-gb-ZcJ"/>
                             <constraint firstItem="y4L-oB-4sU" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="20" id="Ggi-uN-6g1"/>
@@ -237,6 +245,7 @@
                             <constraint firstItem="lzV-BA-2id" firstAttribute="top" secondItem="o2u-3J-Iw1" secondAttribute="bottom" constant="20" id="SMy-yc-ovb"/>
                             <constraint firstItem="eZo-Ao-bL3" firstAttribute="top" secondItem="g48-o3-jU4" secondAttribute="bottom" constant="20" id="Tzm-TA-KH0"/>
                             <constraint firstItem="g48-o3-jU4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Uxp-BO-flJ"/>
+                            <constraint firstItem="da4-TR-YmT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="XTP-1L-dZL"/>
                             <constraint firstItem="A7g-Ss-DxN" firstAttribute="top" secondItem="SdF-Wh-CFz" secondAttribute="bottom" constant="22" id="XWy-dp-aFg"/>
                             <constraint firstItem="A7g-Ss-DxN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Yo1-kv-HdD"/>
                             <constraint firstItem="p6Q-V3-NvD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ch3-aA-UDX"/>
@@ -257,6 +266,7 @@
                         <outlet property="btnAlquiler" destination="g48-o3-jU4" id="5DS-qU-UmH"/>
                         <outlet property="btnVacaciones" destination="eZo-Ao-bL3" id="8dP-3Y-BbU"/>
                         <outlet property="btnVenta" destination="A7g-Ss-DxN" id="Uaw-h5-s50"/>
+                        <outlet property="cargandoGif" destination="da4-TR-YmT" id="fJi-Ti-Wwg"/>
                         <outlet property="contactoTxt" destination="8DQ-JH-xu2" id="XDB-Wl-aGB"/>
                         <outlet property="facebook" destination="p6Q-V3-NvD" id="bRC-xQ-Ki3"/>
                         <outlet property="instagram" destination="ysl-J1-v1e" id="fk1-UP-IgY"/>
@@ -1018,6 +1028,7 @@
                         <outlet property="equipamientosTitulo" destination="ctc-fa-fDF" id="oyE-nf-Wtp"/>
                         <outlet property="generales" destination="xFq-eR-jUx" id="aBc-En-Sk8"/>
                         <outlet property="generalesTitulo" destination="Ytc-dE-gko" id="ddp-Zm-wBe"/>
+                        <outlet property="pickerIdiomas" destination="rn4-hu-uhx" id="5hz-Pz-0lw"/>
                         <outlet property="precio" destination="c8d-TM-ZXW" id="8dk-Q7-leb"/>
                         <outlet property="referencia" destination="ebq-qT-Nu6" id="DWf-dh-XJY"/>
                         <outlet property="reservarBtn" destination="rCx-Xu-MFP" id="HWD-P0-Yz2"/>

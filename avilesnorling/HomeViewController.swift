@@ -23,20 +23,31 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
     @IBOutlet weak var btnAlquiler: UIButton!
     @IBOutlet weak var btnVacaciones: UIButton!
     @IBOutlet weak var contactoTxt: UILabel!
+    @IBOutlet weak var cargandoGif: UIImageView!
     weak var delegate : StringSelectionDelegate?
     var ubicacion : String = ""
     var tipoAnuncio : String = ""
     var arrayIdiomas : [String] = [String]()
+    var currentLanguage = "es"
     
     override func viewWillAppear(_ animated: Bool) {
-        //TODO SQLite
-        let helper = DatabaseHelper()
-        helper.remake()
+        cargandoGif.image = UIImage(named: "pngtree-loading-icon-vector-transparent-png-image_5687537.png")
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        cargandoGif.alpha = 1.0
+        DispatchQueue.global().async {
+            let helper = DatabaseHelper()
+            helper.remake()
+            DispatchQueue.main.async {
+                self.view.backgroundColor = UIColor.black.withAlphaComponent(1.0)
+                self.cargandoGif.isHidden = true
+            }
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
         changeLanguage(lang: "es")
         let tapGestureRecognizerWhatsapp = UITapGestureRecognizer(target: self, action: #selector(imageTappedWhatsapp(tapGestureRecognizer:)))
@@ -264,6 +275,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
             destino?.delegate = self
             destino?.ubicacionElegida = ubicacion
             destino?.tipoAnuncioElegido = tipoAnuncio
+            destino?.currentLanguage = currentLanguage
         }
     }
     func changeLanguage(lang: String) {
@@ -271,6 +283,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         btnAlquiler.setTitle("alquiler".localizeString(string: lang), for: .normal)
         btnVacaciones.setTitle("vacaciones".localizeString(string: lang), for: .normal)
         contactoTxt.text = "contacto".localizeString(string: lang)
+        currentLanguage = lang
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

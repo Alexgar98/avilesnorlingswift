@@ -149,6 +149,7 @@
 				0492D9A32A139D37009329AC /* BusquedaTableViewCellController.swift */,
 				0413BCC02A0E2BD700D98C3E /* HomeViewController.swift */,
 				0492D9A12A137CB6009329AC /* Propiedad.swift */,
+				048680A62A1CD4AB0042116A /* DatabaseHelper.swift */,
 				0487435B2A25ECB000932A61 /* propiedades.json */,
 				048A7F8C2A1F72320069ED9E /* Localizable.strings */,
 				0413BCC22A0E2BD700D98C3E /* Main.storyboard */,
@@ -156,7 +157,6 @@
 				0413BCC72A0E2BDA00D98C3E /* LaunchScreen.storyboard */,
 				0413BCCA2A0E2BDA00D98C3E /* Info.plist */,
 				048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */,
-				048680A62A1CD4AB0042116A /* DatabaseHelper.swift */,
 			);
 			path = avilesnorling;
 			sourceTree = "<group>";

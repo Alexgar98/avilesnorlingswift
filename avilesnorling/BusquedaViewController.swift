@@ -40,16 +40,13 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var consulta : [String : String] = [:]
     var currentLanguage = ""
     
-    //let url = URL(string: "https://avilesnorling.inmoenter.com/export/all/xcp.xml")
-    //var parser : CXMLParser!
     let helper : DatabaseHelper = DatabaseHelper()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
-        changeLanguage(lang: "es")
-        currentLanguage = "es"
+        changeLanguage(lang: currentLanguage)
         // Do any additional setup after loading the view.
         self.referencia.delegate = self
         self.superficie.delegate = self
@@ -86,13 +83,27 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         self.pickerIdiomas.delegate = self
         self.pickerIdiomas.dataSource = self
         
+        switch currentLanguage {
+        case "es":
+            pickerIdiomas.selectRow(0, inComponent: 0, animated: true)
+        case "en":
+            pickerIdiomas.selectRow(1, inComponent: 0, animated: true)
+        case "fr":
+            pickerIdiomas.selectRow(3, inComponent: 0, animated: true)
+        case "de":
+            pickerIdiomas.selectRow(2, inComponent: 0, animated: true)
+        case "sv":
+            pickerIdiomas.selectRow(4, inComponent: 0, animated: true)
+        default:
+            pickerIdiomas.selectRow(0, inComponent: 0, animated: true)
+        }
+        
         tiposAnuncio = ["Oferta", "Venta", "Alquiler", "Vacaciones"]
         ubicaciones = ["Torre del Mar", "Vélez-Málaga", "Algarrobo", "Almáchar", "Almayate", "Benajarafe", "Benamargosa", "Caleta de Vélez", "Canillas de Aceituno", "Torrox", "Málaga", "Málaga oriental"]
         numerosDormitorios = ["Dormitorios", "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+", "10+"]
         tiposInmueble = ["Tipo inmueble", "Pisos", "Casas", "Locales"]
-        
         tableViewAnuncios.reloadData()
-        print(arrayPropiedades.count)
+        
     }
     
     @IBAction func buscar(_ sender: Any) {
@@ -298,8 +309,9 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 break
             }
             arrayPropiedades = helper.consultar(consulta: consulta)
+            
         }
-        
+        changeLanguage(lang: currentLanguage)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -325,7 +337,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             cell.precioAnuncio.text = "\(precio!) €"
         }
         else {
-            cell.precioAnuncio.text = "A consultar"
+            cell.precioAnuncio.text = "consultar".localizeString(string: currentLanguage)
         }
         cell.referenciaAnuncio.text = "Ref: \(referencia)"
         if dormitorios != 0 {
@@ -360,6 +372,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let datos = arrayPropiedades[indexPath.row]
         if let destino = storyboard?.instantiateViewController(withIdentifier: "anuncio") as? AnuncioViewController {
             destino.datosRecibidos = datos
+            destino.currentLanguage = currentLanguage
             navigationController?.pushViewController(destino, animated: true)
         }
     }
@@ -410,7 +423,12 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         dormitorios.reloadAllComponents()
         tipoAnuncio.reloadAllComponents()
         tipoInmueble.reloadAllComponents()
-        
+        let celda = tableViewAnuncios.dequeueReusableCell(withIdentifier: "celdaAnuncios") as! BusquedaTableViewCellController
+        if !(celda.precioAnuncio.text?.hasSuffix("€"))! {
+            celda.precioAnuncio.text = "consultar".localizeString(string: lang)
+        }
+        currentLanguage = lang
+        tableViewAnuncios.reloadData()
     }
     
 }
