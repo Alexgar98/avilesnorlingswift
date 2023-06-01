@@ -24,6 +24,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var pickerIdiomas: UIPickerView!
     @IBOutlet weak var tableViewAnuncios: UITableView!
     @IBOutlet weak var btnBuscar: UIButton!
+    @IBOutlet weak var cargandoGif: UIImageView!
     weak var delegate : StringSelectionDelegate?
     var ubicacionElegida : String?
     var tipoAnuncioElegido : String?
@@ -312,6 +313,8 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             
         }
         changeLanguage(lang: currentLanguage)
+        view.alpha = 1.0
+        cargandoGif.alpha = 0.0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -369,11 +372,16 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let datos = arrayPropiedades[indexPath.row]
-        if let destino = storyboard?.instantiateViewController(withIdentifier: "anuncio") as? AnuncioViewController {
-            destino.datosRecibidos = datos
-            destino.currentLanguage = currentLanguage
-            navigationController?.pushViewController(destino, animated: true)
+        cargandoGif.image = UIImage(named: "circular-loading-icon-with-dashes")
+        view.alpha = 0.5
+        cargandoGif.alpha = 1.0
+        DispatchQueue.main.async {
+            let datos = self.arrayPropiedades[indexPath.row]
+            if let destino = self.storyboard?.instantiateViewController(withIdentifier: "anuncio") as? AnuncioViewController {
+                destino.datosRecibidos = datos
+                destino.currentLanguage = self.currentLanguage
+                self.navigationController?.pushViewController(destino, animated: true)
+            }
         }
     }
     

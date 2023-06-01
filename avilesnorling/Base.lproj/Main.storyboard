@@ -532,6 +532,13 @@
                                     <constraint firstAttribute="height" constant="48" id="LrO-XI-7iD"/>
                                 </constraints>
                             </pickerView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QPR-T3-cky">
+                                <rect key="frame" x="143" y="413" width="128" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="128" id="9gR-Lw-E8e"/>
+                                    <constraint firstAttribute="height" constant="128" id="Zhg-RX-TEr"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QAs-TO-9YD"/>
                         <color key="backgroundColor" systemColor="labelColor"/>
@@ -571,13 +578,16 @@
                             <constraint firstItem="Ny0-dW-cxK" firstAttribute="top" secondItem="MRo-Pd-Bxz" secondAttribute="bottom" constant="10" id="tjd-Uu-FXm"/>
                             <constraint firstItem="lDZ-L6-qad" firstAttribute="top" secondItem="QAs-TO-9YD" secondAttribute="top" constant="20" id="toJ-DS-LeL"/>
                             <constraint firstItem="vpA-1K-Tdf" firstAttribute="top" secondItem="QAs-TO-9YD" secondAttribute="top" constant="20" id="xWi-Li-zn3"/>
+                            <constraint firstItem="QPR-T3-cky" firstAttribute="centerX" secondItem="QAs-TO-9YD" secondAttribute="centerX" id="yvL-X5-1tw"/>
                             <constraint firstItem="QAs-TO-9YD" firstAttribute="trailing" secondItem="pJK-Mj-ZRr" secondAttribute="trailing" constant="154" id="zLZ-Us-HVs"/>
+                            <constraint firstItem="QPR-T3-cky" firstAttribute="centerY" secondItem="QAs-TO-9YD" secondAttribute="centerY" id="zoy-wG-dNU"/>
                             <constraint firstItem="rgN-OZ-7uH" firstAttribute="top" secondItem="7De-BW-1Jb" secondAttribute="bottom" constant="10" id="zxi-P3-sHi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6KN-5A-oH7"/>
                     <connections>
                         <outlet property="btnBuscar" destination="pJK-Mj-ZRr" id="CUv-NO-0tf"/>
+                        <outlet property="cargandoGif" destination="QPR-T3-cky" id="o4a-3A-4EP"/>
                         <outlet property="dormitorios" destination="Ny0-dW-cxK" id="Svb-eK-ok5"/>
                         <outlet property="pickerIdiomas" destination="Ges-T4-LA9" id="cZ0-pQ-Fmk"/>
                         <outlet property="precioDesde" destination="FfK-28-DfZ" id="9yy-Sc-Avl"/>

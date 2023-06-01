@@ -31,15 +31,19 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
     var currentLanguage = "es"
     
     override func viewWillAppear(_ animated: Bool) {
-        cargandoGif.image = UIImage(named: "pngtree-loading-icon-vector-transparent-png-image_5687537.png")
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        cargandoGif.image = UIImage(named: "circular-loading-icon-with-dashes")
+        
+        view.alpha = 0.5
         cargandoGif.alpha = 1.0
         DispatchQueue.global().async {
             let helper = DatabaseHelper()
             helper.remake()
             DispatchQueue.main.async {
-                self.view.backgroundColor = UIColor.black.withAlphaComponent(1.0)
-                self.cargandoGif.isHidden = true
+                self.view.alpha = 1.0
+                self.cargandoGif.alpha = 0.0
+            }
+            DispatchQueue.main.async {
+                self.view.alpha = 1.0
             }
         }
     }

@@ -61,7 +61,9 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
+        
         changeLanguage(lang: currentLanguage)
         switch currentLanguage {
         case "es":
