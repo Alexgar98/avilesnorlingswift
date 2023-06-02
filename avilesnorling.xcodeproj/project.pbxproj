@@ -16,6 +16,8 @@
 		048680A52A1CD3B80042116A /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 048680A42A1CD3B80042116A /* SQLite */; };
 		048680A72A1CD4AB0042116A /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048680A62A1CD4AB0042116A /* DatabaseHelper.swift */; };
 		0487435C2A25ECB000932A61 /* propiedades.json in Resources */ = {isa = PBXBuildFile; fileRef = 0487435B2A25ECB000932A61 /* propiedades.json */; };
+		04874C182A29EC620049ECCE /* SwiftyGif in Frameworks */ = {isa = PBXBuildFile; productRef = 04874C172A29EC620049ECCE /* SwiftyGif */; };
+		04874C1A2A29ECF00049ECCE /* Loading_icon.gif in Resources */ = {isa = PBXBuildFile; fileRef = 04874C192A29ECF00049ECCE /* Loading_icon.gif */; };
 		048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; };
 		048A00632A152F5B006026F8 /* CheatyXML.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 048A005E2A152D84006026F8 /* CheatyXML.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		048A7F8A2A1F72320069ED9E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 048A7F8C2A1F72320069ED9E /* Localizable.strings */; };
@@ -83,6 +85,7 @@
 		0413BCCA2A0E2BDA00D98C3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		048680A62A1CD4AB0042116A /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		0487435B2A25ECB000932A61 /* propiedades.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = propiedades.json; path = ../../../../Downloads/propiedades.json; sourceTree = "<group>"; };
+		04874C192A29ECF00049ECCE /* Loading_icon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = Loading_icon.gif; path = ../../../../Downloads/Loading_icon.gif; sourceTree = "<group>"; };
 		048A004D2A152C67006026F8 /* CheatyXML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CheatyXML.xcodeproj; path = "../../../../Downloads/CheatyXML-master/CheatyXML.xcodeproj"; sourceTree = "<group>"; };
 		048A00582A152D84006026F8 /* CheatyXML.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CheatyXML.xcodeproj; path = "../../../../../Downloads/CheatyXML-master/CheatyXML.xcodeproj"; sourceTree = "<group>"; };
 		048A7F7A2A1F6D0C0069ED9E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
@@ -115,6 +118,7 @@
 				048CCD0E2A1642C500742DC4 /* SDWebImage in Frameworks */,
 				048CCD102A1642C500742DC4 /* SDWebImageMapKit in Frameworks */,
 				048A00622A152F5B006026F8 /* CheatyXML.framework in Frameworks */,
+				04874C182A29EC620049ECCE /* SwiftyGif in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +154,7 @@
 				0413BCC02A0E2BD700D98C3E /* HomeViewController.swift */,
 				0492D9A12A137CB6009329AC /* Propiedad.swift */,
 				048680A62A1CD4AB0042116A /* DatabaseHelper.swift */,
+				04874C192A29ECF00049ECCE /* Loading_icon.gif */,
 				0487435B2A25ECB000932A61 /* propiedades.json */,
 				048A7F8C2A1F72320069ED9E /* Localizable.strings */,
 				0413BCC22A0E2BD700D98C3E /* Main.storyboard */,
@@ -215,6 +220,7 @@
 				048CCD0D2A1642C500742DC4 /* SDWebImage */,
 				048CCD0F2A1642C500742DC4 /* SDWebImageMapKit */,
 				048680A42A1CD3B80042116A /* SQLite */,
+				04874C172A29EC620049ECCE /* SwiftyGif */,
 			);
 			productName = avilesnorling;
 			productReference = 0413BCB92A0E2BD700D98C3E /* avilesnorling.app */;
@@ -251,6 +257,7 @@
 			packageReferences = (
 				048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				048680A32A1CD3B80042116A /* XCRemoteSwiftPackageReference "SQLite.swift" */,
+				04874C162A29EC620049ECCE /* XCRemoteSwiftPackageReference "SwiftyGif" */,
 			);
 			productRefGroup = 0413BCBA2A0E2BD700D98C3E /* Products */;
 			projectDirPath = "";
@@ -307,6 +314,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04874C1A2A29ECF00049ECCE /* Loading_icon.gif in Resources */,
 				0413BCC92A0E2BDA00D98C3E /* LaunchScreen.storyboard in Resources */,
 				048A7F8A2A1F72320069ED9E /* Localizable.strings in Resources */,
 				0487435C2A25ECB000932A61 /* propiedades.json in Resources */,
@@ -500,13 +508,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHRZN6WSD9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = avilesnorling/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -527,13 +536,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = YHRZN6WSD9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = avilesnorling/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -579,6 +589,14 @@
 				minimumVersion = 0.14.1;
 			};
 		};
+		04874C162A29EC620049ECCE /* XCRemoteSwiftPackageReference "SwiftyGif" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kirualex/SwiftyGif.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		048CCD0C2A1642C500742DC4 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -594,6 +612,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 048680A32A1CD3B80042116A /* XCRemoteSwiftPackageReference "SQLite.swift" */;
 			productName = SQLite;
+		};
+		04874C172A29EC620049ECCE /* SwiftyGif */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04874C162A29EC620049ECCE /* XCRemoteSwiftPackageReference "SwiftyGif" */;
+			productName = SwiftyGif;
 		};
 		048CCD0D2A1642C500742DC4 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import SwiftyGif
 
+//Menú principal
 class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
+    //Outlets
     @IBOutlet weak var twitter: UIImageView!
     @IBOutlet weak var facebook: UIImageView!
     @IBOutlet weak var instagram: UIImageView!
@@ -24,36 +27,48 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
     @IBOutlet weak var btnVacaciones: UIButton!
     @IBOutlet weak var contactoTxt: UILabel!
     @IBOutlet weak var cargandoGif: UIImageView!
+    
+    //Cosas que necesito más adelante
     weak var delegate : StringSelectionDelegate?
     var ubicacion : String = ""
     var tipoAnuncio : String = ""
     var arrayIdiomas : [String] = [String]()
     var currentLanguage = "es"
     
+    //Coloco la imagen de carga cuando abre y la quito cuando ha terminado de cargar
     override func viewWillAppear(_ animated: Bool) {
-        cargandoGif.image = UIImage(named: "circular-loading-icon-with-dashes")
+        cargandoGif.image = UIImage(named: "oie_transparent")
         
-        view.alpha = 0.5
+        let container = UIView()
+        container.frame = view.frame
+        container.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        view.addSubview(container)
+
+        container.addSubview(cargandoGif)
+        
         cargandoGif.alpha = 1.0
         DispatchQueue.global().async {
             let helper = DatabaseHelper()
             helper.remake()
             DispatchQueue.main.async {
-                self.view.alpha = 1.0
+                container.backgroundColor = UIColor.clear
                 self.cargandoGif.alpha = 0.0
+                container.removeFromSuperview()
             }
-            DispatchQueue.main.async {
-                self.view.alpha = 1.0
-            }
+            
         }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        //Lleno el array de idiomas y cambio a español por defecto
         arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
         changeLanguage(lang: "es")
+        
+        //Enlaces de redes sociales
         let tapGestureRecognizerWhatsapp = UITapGestureRecognizer(target: self, action: #selector(imageTappedWhatsapp(tapGestureRecognizer:)))
         whatsapp.isUserInteractionEnabled = true
         whatsapp.addGestureRecognizer(tapGestureRecognizerWhatsapp)
@@ -79,6 +94,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         instagram.addGestureRecognizer(tapGestureRecognizerInstagram)
     }
     
+    //Activo los enlaces
     @objc func imageTappedWhatsapp(tapGestureRecognizer : UITapGestureRecognizer) {
         let tappedImage = tapGestureRecognizer.view as! UIImageView
         abrirUrl(direccion: "https://api.whatsapp.com/send?phone=34643672547")
@@ -118,7 +134,10 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         
     }
     
+    //Popup para elegir la ubicación
     let alertController = UIAlertController(title: "Ubicación", message: "Selecciona una ubicación", preferredStyle: .actionSheet)
+    
+    //Guardo la ubicación y el tipo de anuncio en el segue y cambio de pantalla
     @IBAction func btnVenta(_ sender: Any) {
         tipoAnuncio = "Venta"
         let alertController = UIAlertController(title: "Ubicación", message: "Selecciona una ubicación", preferredStyle: .actionSheet)
@@ -187,6 +206,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         present(alertController, animated: true, completion: nil)
     }
     
+    //Lo mismo pero con el alquiler
     @IBAction func alquiler(_ sender: Any) {
         tipoAnuncio = "Alquiler"
         let alertController = UIAlertController(title: "Ubicación", message: "Selecciona una ubicación", preferredStyle: .actionSheet)
@@ -218,6 +238,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         alertController.addAction(cancelar)
         present(alertController, animated: true, completion: nil)
     }
+    //Lo mismo pero con las vacaciones
     @IBAction func vacaciones(_ sender: Any) {
         tipoAnuncio = "Vacaciones"
         let torre = UIAlertAction(title: "Torre del Mar", style: .default) {_ in
@@ -254,6 +275,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         alertController.addAction(cancelar)
         present(alertController, animated: true, completion: nil)
     }
+    //Función que coge un string e intenta abrir la URL que se ha pasado
     func abrirUrl(direccion : String) {
         if let url = URL(string: direccion) {
             if UIApplication.shared.canOpenURL(url) {
@@ -268,11 +290,13 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         }
     }
     
+    //Esto lo pide el delegado pero no sirve para nada útil
     func didSelectString(_ string: String) {
         print("Se ha seleccionado \(string)")
         //TODO resto
     }
     
+    //Guarda en el segue la ubicación, el tipo de anuncio elegidos y el idioma que se haya puesto
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "aBuscar" {
             let destino = segue.destination as? BusquedaViewController
@@ -282,6 +306,8 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
             destino?.currentLanguage = currentLanguage
         }
     }
+    
+    //Función para cambiar el idioma de la aplicación
     func changeLanguage(lang: String) {
         btnVenta.setTitle("venta".localizeString(string: lang), for: .normal)
         btnAlquiler.setTitle("alquiler".localizeString(string: lang), for: .normal)
@@ -290,6 +316,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         currentLanguage = lang
     }
     
+    //Cosas del picker de idiomas
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -302,6 +329,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         return arrayIdiomas[row]
     }
     
+    //Llamo a changeLanguage según la opción elegida en el picker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch arrayIdiomas[row] {
         case "Español":
@@ -321,6 +349,7 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
     
 }
 
+//Extensión de String, mete una función para traducir cosas
 extension String {
     func localizeString(string: String) -> String {
         let path = Bundle.main.path(forResource: string, ofType: "lproj")

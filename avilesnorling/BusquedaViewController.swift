@@ -10,8 +10,10 @@ import Foundation
 import CheatyXML
 import SDWebImage
 
+//Pantalla de búsqueda de anuncios
 class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
+    //Outlets
     @IBOutlet weak var precioHasta: UITextView!
     @IBOutlet weak var tipoAnuncio: UIPickerView!
     @IBOutlet weak var superficie: UITextView!
@@ -25,6 +27,8 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     @IBOutlet weak var tableViewAnuncios: UITableView!
     @IBOutlet weak var btnBuscar: UIButton!
     @IBOutlet weak var cargandoGif: UIImageView!
+    
+    //Cosas que necesito más adelante
     weak var delegate : StringSelectionDelegate?
     var ubicacionElegida : String?
     var tipoAnuncioElegido : String?
@@ -46,9 +50,11 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Lleno el array de idiomas y cambio al que haya traído desde el menú principal
         arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
         changeLanguage(lang: currentLanguage)
         // Do any additional setup after loading the view.
+        //Delegados y hints
         self.referencia.delegate = self
         self.superficie.delegate = self
         self.precioDesde.delegate = self
@@ -84,6 +90,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         self.pickerIdiomas.delegate = self
         self.pickerIdiomas.dataSource = self
         
+        //Cambio el idioma seleccionado en el picker según lo que haya llegado del menú principal
         switch currentLanguage {
         case "es":
             pickerIdiomas.selectRow(0, inComponent: 0, animated: true)
@@ -99,6 +106,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             pickerIdiomas.selectRow(0, inComponent: 0, animated: true)
         }
         
+        //Lleno los otros pickers y recargo el table view de anuncios
         tiposAnuncio = ["Oferta", "Venta", "Alquiler", "Vacaciones"]
         ubicaciones = ["Torre del Mar", "Vélez-Málaga", "Algarrobo", "Almáchar", "Almayate", "Benajarafe", "Benamargosa", "Caleta de Vélez", "Canillas de Aceituno", "Torrox", "Málaga", "Málaga oriental"]
         numerosDormitorios = ["Dormitorios", "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+", "10+"]
@@ -107,6 +115,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
     }
     
+    //Función para hacer la búsqueda desde base de datos
     @IBAction func buscar(_ sender: Any) {
         let referenciaElegida = referencia.text
         let superficieElegida = superficie.text
@@ -199,6 +208,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
      }
      */
     
+    //COsas de los pickers
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -241,6 +251,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         return nil
     }
     
+    //Cojo datos de los picker views
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == ubicacion {
             ubicacionElegida = ubicaciones[row]
@@ -288,6 +299,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         //TODO guardar datos
     }
     
+    //Ajustes para hacer la consulta a base de datos
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -313,10 +325,8 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
             
         }
         changeLanguage(lang: currentLanguage)
-        view.alpha = 1.0
-        cargandoGif.alpha = 0.0
     }
-    
+    //Cosas del table view
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -326,6 +336,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         return arrayPropiedades.count
     }
     
+    //Cargo lo que se haya encontrado en el table view
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "celdaAnuncios", for: indexPath) as! BusquedaTableViewCellController
         
@@ -336,6 +347,8 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         let superficieConstruida = propiedad.superficieConstruida ?? 0
         let baños = propiedad.baños
         let imagen = propiedad.imagen ?? ""
+        cell.personasAnuncio.isHidden = true
+        cell.iconoPersonas.isHidden = true //TODO cambiar esto
         if precio != 0 {
             cell.precioAnuncio.text = "\(precio!) €"
         }
@@ -371,9 +384,16 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         return cell
     }
     
+    //Coloco la imagen de carga mientras se leen del XML los datos del anuncio seleccionado. Cuando termina, hago el segue
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        cargandoGif.image = UIImage(named: "circular-loading-icon-with-dashes")
-        view.alpha = 0.5
+        cargandoGif.image = UIImage(named: "oie_transparent")
+        let container = UIView()
+        container.frame = view.frame
+        container.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        view.addSubview(container)
+
+        container.addSubview(cargandoGif)
+        
         cargandoGif.alpha = 1.0
         DispatchQueue.main.async {
             let datos = self.arrayPropiedades[indexPath.row]
@@ -381,10 +401,15 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 destino.datosRecibidos = datos
                 destino.currentLanguage = self.currentLanguage
                 self.navigationController?.pushViewController(destino, animated: true)
+                
+                container.backgroundColor = UIColor.clear
+                self.cargandoGif.alpha = 0.0
+                container.isHidden = true
             }
         }
     }
     
+    //Quito el hint si se empieza a editar algún campo
     func textViewDidBeginEditing(_ textView : UITextView) {
         if textView.textColor == UIColor.lightGray {
             textView.text = nil
@@ -392,6 +417,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
     }
     
+    //Vuelvo a poner el hint si el campo sigue vacío
     func textViewDidEndEditing(_ textView : UITextView) {
         if textView.text.isEmpty {
             switch textView {
@@ -410,6 +436,7 @@ class BusquedaViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
     }
     
+    //Función para cambiar el idioma
     func changeLanguage(lang: String) {
         btnBuscar.setTitle("buscar".localizeString(string: lang), for: .normal)
         

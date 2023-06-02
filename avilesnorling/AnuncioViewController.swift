@@ -9,9 +9,10 @@ import UIKit
 import CheatyXML
 import SDWebImage
 
+//Pantalla de anuncio individual
 class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
+    //Outlets
     var datosRecibidos : Propiedad?
     @IBOutlet weak var referencia: UILabel!
     
@@ -42,6 +43,8 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var descripcionTitulo: UILabel!
     @IBOutlet weak var caracteristicasTitulo: UILabel!
     @IBOutlet weak var pickerIdiomas: UIPickerView!
+    
+    //Cosas que me hacen falta más adelante
     var caracteristicasGenerales = ""
     var txtSuperficies = ""
     var txtEquipamientos = ""
@@ -62,6 +65,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
 
         // Do any additional setup after loading the view.
         
+        //Lleno el picker de idiomas y selecciono según el idioma que haya llegado a esta pantalla
         arrayIdiomas = ["Español", "English", "Deutsch", "Français", "Svenska"]
         
         changeLanguage(lang: currentLanguage)
@@ -80,6 +84,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             pickerIdiomas.selectRow(0, inComponent: 0, animated: true)
         }
         
+        //Parsing del JSON de reservas
         var arrayUrlImagenes : [String] = []
         
         if let localData = self.leerJson(forName: "propiedades") {
@@ -94,6 +99,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             reservarBtn.isHidden = true
         }
         
+        //Parsing de los datos del anuncio
         if let datos = datosRecibidos {
             referencia.text = "Ref.: \(datos.referencia)"
             if (datos.precio == 0) {
@@ -183,6 +189,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 contactoTitulo.isHidden = true
             }
         }
+        //Ajuste de las imágenes
         let anchoImagenes = view.frame.width
         let anchoTotal = CGFloat(arrayUrlImagenes.count) * view.frame.width
         stackImagenes.distribution = .fillEqually
@@ -192,6 +199,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         scrollImagenes.layoutIfNeeded()
     }
     
+    //Cosas del picker
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -204,6 +212,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return arrayIdiomas[row]
     }
     
+    //Según lo que se elija se cambia el idioma
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch arrayIdiomas[row] {
         case "Español":
@@ -221,6 +230,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
+    //Función para cambiar el idioma. Tiene que parsear varias cosas del XML
     func changeLanguage(lang: String) {
         currentLanguage = lang
         reservarBtn.setTitle("reservar".localizeString(string: lang), for: .normal)
@@ -554,10 +564,12 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
     }
     
+    //Botón para abrir la URL y reservar
     @IBAction func btnReserva(_ sender: Any) {
         abrirUrl(direccion: url)
     }
     
+    //Struct que maneja las cosas que hay que coger para generar la URL
     struct PropiedadEnlaces : Codable {
         let nombre : String
         let cod_an : String
@@ -565,6 +577,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         let id_opinan : String
     }
     
+    //Función para leer el json y devolver los datos obtenidos
     func leerJson (forName name : String) -> Data? {
         do {
             if let bundlePath = Bundle.main.path(forResource: name, ofType: "json"),
@@ -578,6 +591,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return nil
     }
     
+    //Parser de los datos obtenidos antes. Genera la URL
     func parse (jsonData : Data, referencia : String) -> URL? {
         print(referencia)
         do {
@@ -594,6 +608,7 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         return nil
     }
     
+    //Función para abrir la URL
     func abrirUrl(direccion : URL?) {
         if let url = direccion {
             if UIApplication.shared.canOpenURL(url) {
