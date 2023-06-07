@@ -8,9 +8,11 @@
 import UIKit
 import CheatyXML
 import SDWebImage
+import SafariServices
+import MessageUI
 
 //Pantalla de anuncio individual
-class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, MFMailComposeViewControllerDelegate {
     
     //Outlets
     var datosRecibidos : Propiedad?
@@ -44,6 +46,12 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var caracteristicasTitulo: UILabel!
     @IBOutlet weak var pickerIdiomas: UIPickerView!
     
+    @IBOutlet weak var campoTelefono: UITextField!
+    @IBOutlet weak var campoNombre: UITextField!
+    @IBOutlet weak var campoEmail: UITextField!
+    @IBOutlet weak var privacidadCheckbox: UISwitch!
+    @IBOutlet weak var txtPrivacidad: UILabel!
+    @IBOutlet weak var campoMensaje: UITextField!
     //Cosas que me hacen falta más adelante
     var caracteristicasGenerales = ""
     var txtSuperficies = ""
@@ -197,8 +205,73 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         scrollImagenes.contentSize = CGSize(width: anchoTotal, height: scrollImagenes.frame.height)
         scrollImagenes.isScrollEnabled = true
         scrollImagenes.layoutIfNeeded()
+        
+        let attributedString = NSMutableAttributedString(string: "Condiciones de privacidad")
+        let url = URL(string: "https://www.avilesnorling.com/es/privacy")!
+        let range = NSRange(location: 0, length: attributedString.length)
+        attributedString.addAttribute(.link, value: url, range: range)
+        txtPrivacidad.attributedText = attributedString
+        txtPrivacidad.isUserInteractionEnabled = true
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleLinkTap(_:)))
+        txtPrivacidad.addGestureRecognizer(tapGesture)
     }
     
+    @objc func handleLinkTap(_ gesture: UITapGestureRecognizer) {
+        guard let textView = gesture.view as? UITextView else {
+            return
+        }
+        
+        let layoutManager = textView.layoutManager
+        let location = gesture.location(in: textView)
+        let position = layoutManager.characterIndex(for: location, in: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        
+        if let url = textView.attributedText.attribute(.link, at: position, effectiveRange: nil) as? URL {
+            let safariViewController = SFSafariViewController(url: url)
+            present(safariViewController, animated: true, completion: nil)
+        }
+    }
+    
+    @IBAction func btnContacto(_ sender: Any) {
+        let nombreContactoCampo = campoNombre.text ?? ""
+        let emailContactoCampo = campoEmail.text ?? ""
+        let telefonoContactoCampo = campoTelefono.text ?? ""
+        let mensajeContactoCampo = campoMensaje.text ?? ""
+        
+        if !privacidadCheckbox.isOn {
+            showAlert(message: "Tienes que aceptar la política de privacidad")
+        }
+        else if nombreContactoCampo.isEmpty || emailContactoCampo.isEmpty || telefonoContactoCampo.isEmpty || mensajeContactoCampo.isEmpty {
+            showAlert(message: "Tienes que rellenar todos los campos")
+        }
+        else {
+            let destino = "" //TODO mail de destino
+            let asunto = "Ref - \(nombreContactoCampo)"
+            let cuerpo = "\(mensajeContactoCampo)\nTel: \(telefonoContactoCampo)"
+            
+            if MFMailComposeViewController.canSendMail() {
+                let mailComposer = MFMailComposeViewController()
+                mailComposer.mailComposeDelegate = self
+                mailComposer.setToRecipients([destino])
+                mailComposer.setSubject(asunto)
+                mailComposer.setMessageBody(cuerpo, isHTML: false)
+                present(mailComposer, animated: true, completion: nil)
+            }
+            else {
+                showAlert(message: "No se ha encontrado cliente de email")
+            }
+        }
+    }
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
     //Cosas del picker
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
