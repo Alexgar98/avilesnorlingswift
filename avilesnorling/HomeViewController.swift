@@ -4,6 +4,9 @@
 //
 //  Created by Mac on 12/5/23.
 //
+// Aplicación hecha por Alexis García Díaz
+// Si lees esto y tienes dudas o necesitas contratar un programador
+// envía un Whatsapp al 675369606. Gracias :)
 
 import UIKit
 import SwiftyGif
@@ -238,42 +241,9 @@ class HomeViewController: UIViewController, StringSelectionDelegate, UIPickerVie
         alertController.addAction(cancelar)
         present(alertController, animated: true, completion: nil)
     }
-    //Lo mismo pero con las vacaciones
+    //Link a la página del alquiler vacacional
     @IBAction func vacaciones(_ sender: Any) {
-        tipoAnuncio = "Vacaciones"
-        let torre = UIAlertAction(title: "Torre del Mar", style: .default) {_ in
-            print ("Eliges Torre del Mar")
-            self.ubicacion = "Torre del Mar"
-            self.performSegue(withIdentifier: "aBuscar", sender: nil)
-        }
-        alertController.addAction(torre)
-        let almayate = UIAlertAction(title: "Almayate", style: .default) {_ in
-            print ("Eliges Almayate")
-            self.ubicacion = "Almayate"
-            self.performSegue(withIdentifier: "aBuscar", sender: nil)
-        }
-        alertController.addAction(almayate)
-        let caleta = UIAlertAction(title: "Caleta de Vélez", style: .default) {_ in
-            print ("Eliges Caleta")
-            self.ubicacion = "Caleta de Vélez"
-            self.performSegue(withIdentifier: "aBuscar", sender: nil)
-        }
-        alertController.addAction(caleta)
-        let malaga = UIAlertAction(title: "Málaga", style: .default) {_ in
-            print ("Eliges Málaga")
-            self.ubicacion = "Málaga"
-            self.performSegue(withIdentifier: "aBuscar", sender: nil)
-        }
-        alertController.addAction(malaga)
-        let malagaOriental = UIAlertAction(title: "Málaga oriental", style: .default) {_ in
-            print ("Eliges Málaga oriental")
-            self.ubicacion = "Málaga oriental"
-            self.performSegue(withIdentifier: "aBuscar", sender: nil)
-        }
-        alertController.addAction(malagaOriental)
-        let cancelar = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
-        alertController.addAction(cancelar)
-        present(alertController, animated: true, completion: nil)
+        abrirUrl(direccion: "https://reservas.avilesnorling.com/alquiler/alquiler-alquileres-d0/")
     }
     //Función que coge un string e intenta abrir la URL que se ha pasado
     func abrirUrl(direccion : String) {
