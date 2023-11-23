@@ -1055,21 +1055,6 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="r1Q-JY-AjL"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="EcS-t6-Lov"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rCx-Xu-MFP">
-                                <rect key="frame" x="160" y="827" width="94" height="35"/>
-                                <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="p9Q-Sl-3aH"/>
-                                </constraints>
-                                <color key="tintColor" red="0.0" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Reservar">
-                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="btnReserva:" destination="7V0-eH-57w" eventType="touchUpInside" id="Zy5-1x-2Zj"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2av-tQ-uHY"/>
                         <color key="backgroundColor" systemColor="labelColor"/>
@@ -1078,20 +1063,17 @@
                             <constraint firstItem="2av-tQ-uHY" firstAttribute="trailing" secondItem="p82-ie-Eqh" secondAttribute="trailing" constant="20" id="3nq-lU-3XJ"/>
                             <constraint firstItem="jfb-g2-Ebi" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="20" id="4cN-ef-QFQ"/>
                             <constraint firstItem="F4U-XZ-eec" firstAttribute="leading" secondItem="2av-tQ-uHY" secondAttribute="leading" constant="20" id="860-js-jpp"/>
-                            <constraint firstItem="rCx-Xu-MFP" firstAttribute="leading" secondItem="2av-tQ-uHY" secondAttribute="leading" constant="160" id="ALd-wZ-bSO"/>
                             <constraint firstItem="bz8-vQ-eN9" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="20" id="AsL-tk-ZkL"/>
                             <constraint firstItem="1zZ-ZP-dG5" firstAttribute="leading" secondItem="1JB-BZ-Tvv" secondAttribute="trailing" constant="10" id="Bim-aW-uIa"/>
                             <constraint firstItem="Jvd-oe-ZIa" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="53" id="CD5-KG-8tw"/>
                             <constraint firstItem="2av-tQ-uHY" firstAttribute="bottom" secondItem="Jvd-oe-ZIa" secondAttribute="bottom" constant="420" id="G9L-JR-LIV"/>
                             <constraint firstItem="rRT-xp-UK1" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="20" id="G9O-M5-D9y"/>
                             <constraint firstItem="jfb-g2-Ebi" firstAttribute="leading" secondItem="rn4-hu-uhx" secondAttribute="trailing" constant="8" symbolic="YES" id="HoG-3H-SBL"/>
-                            <constraint firstItem="2av-tQ-uHY" firstAttribute="bottom" secondItem="rCx-Xu-MFP" secondAttribute="bottom" id="JOR-Qe-fP7"/>
                             <constraint firstItem="F4U-XZ-eec" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="20" id="KO0-Ip-XK2"/>
                             <constraint firstItem="Jvd-oe-ZIa" firstAttribute="leading" secondItem="2av-tQ-uHY" secondAttribute="leading" constant="20" id="RSZ-nT-brH"/>
                             <constraint firstItem="1JB-BZ-Tvv" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="20" id="XrF-bf-mOX"/>
                             <constraint firstItem="K1U-x4-W3H" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="20" id="a2x-k8-gNf"/>
                             <constraint firstItem="K1U-x4-W3H" firstAttribute="leading" secondItem="rRT-xp-UK1" secondAttribute="trailing" constant="10" id="a5V-P2-ZG0"/>
-                            <constraint firstItem="2av-tQ-uHY" firstAttribute="trailing" secondItem="rCx-Xu-MFP" secondAttribute="trailing" constant="160" id="c6z-Q0-l8n"/>
                             <constraint firstItem="1zZ-ZP-dG5" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="20" id="eEa-EP-SSw"/>
                             <constraint firstItem="rn4-hu-uhx" firstAttribute="top" secondItem="2av-tQ-uHY" secondAttribute="top" constant="13" id="gUH-UD-bei"/>
                             <constraint firstItem="2av-tQ-uHY" firstAttribute="trailing" secondItem="Jvd-oe-ZIa" secondAttribute="trailing" constant="20" id="gev-uS-Z3h"/>
@@ -1130,7 +1112,6 @@
                         <outlet property="precio" destination="c8d-TM-ZXW" id="8dk-Q7-leb"/>
                         <outlet property="privacidadCheckbox" destination="KdY-wS-2zD" id="49z-Up-PaS"/>
                         <outlet property="referencia" destination="ebq-qT-Nu6" id="DWf-dh-XJY"/>
-                        <outlet property="reservarBtn" destination="rCx-Xu-MFP" id="HWD-P0-Yz2"/>
                         <outlet property="scroll" destination="p82-ie-Eqh" id="QBq-Py-R7d"/>
                         <outlet property="scrollImagenes" destination="Jvd-oe-ZIa" id="FIv-7E-mTp"/>
                         <outlet property="situacion" destination="F9n-db-3Xo" id="ABx-GO-NYk"/>

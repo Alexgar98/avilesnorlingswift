@@ -18,7 +18,6 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     var datosRecibidos : Propiedad?
     @IBOutlet weak var referencia: UILabel!
     
-    @IBOutlet weak var reservarBtn: UIButton!
     @IBOutlet weak var scrollImagenes: UIScrollView!
     @IBOutlet weak var stackImagenes: UIStackView!
     @IBOutlet weak var scroll: UIScrollView!
@@ -94,18 +93,6 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         //Parsing del JSON de reservas
         var arrayUrlImagenes : [String] = []
-        
-        if let localData = self.leerJson(forName: "propiedades") {
-            if let urlParseada = self.parse(jsonData: localData, referencia: datosRecibidos?.referencia ?? "") {
-                url = urlParseada
-            }
-            else {
-                reservarBtn.isHidden = true
-            }
-        }
-        else {
-            reservarBtn.isHidden = true
-        }
         
         //Parsing de los datos del anuncio
         if let datos = datosRecibidos {
@@ -306,7 +293,6 @@ class AnuncioViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     //Función para cambiar el idioma. Tiene que parsear varias cosas del XML
     func changeLanguage(lang: String) {
         currentLanguage = lang
-        reservarBtn.setTitle("reservar".localizeString(string: lang), for: .normal)
         if !(precio.text?.hasSuffix("€"))! {
             precio.text = "consultar".localizeString(string: lang)
         }
